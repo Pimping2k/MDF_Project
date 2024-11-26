@@ -20,11 +20,13 @@ public class CardItemView : MonoBehaviour, ICustomDrag
 
     public void OnCurrentDrag()
     {
+        CameraManager.Instance.ZoomIn();
         rectTransform.position = Input.mousePosition;
     }
 
     public void OnEndCurrentDrag()
     {
+        CameraManager.Instance.ZoomOut();
         rectTransform.position = originPosition;
     }
 
