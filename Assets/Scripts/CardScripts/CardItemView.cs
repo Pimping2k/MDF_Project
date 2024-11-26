@@ -15,6 +15,9 @@ public class CardItemView : MonoBehaviour, ICustomDrag
     [SerializeField] private DamageComponent DamageComponent;
 
     [SerializeField] private RectTransform rectTransform;
+
+    private int id;
+    public int ID => id;
     
     private Vector3 originPosition;
 
@@ -45,21 +48,4 @@ public class CardItemView : MonoBehaviour, ICustomDrag
         healthText.text = HealthComponent.Health.ToString();
         damageText.text = DamageComponent.Damage.ToString();
     }
-
-    private void OnMouseDrag()
-    {
-        rectTransform.position = Input.mousePosition;
-    }
-
-    private void OnMouseEnter()
-    {
-        rectTransform.position =
-            new Vector3(rectTransform.position.x, rectTransform.position.y + 30, rectTransform.position.z);
-    }
-
-    private void OnMouseExit()
-    {
-        rectTransform.position = originPosition;
-    }
-
 }
