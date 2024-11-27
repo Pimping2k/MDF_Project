@@ -16,6 +16,7 @@ public class CardItemView : MonoBehaviour, ICustomDrag
 
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private CardSpawnModelComponent spawnModelComponent;
+    private Player player;
 
     private Vector3 originPosition;
 
@@ -23,6 +24,9 @@ public class CardItemView : MonoBehaviour, ICustomDrag
     {
         CameraManager.Instance.ZoomIn();
         rectTransform.position = Input.mousePosition;
+        player.canInput = false;
+        if (player.state == Player.CameraState.book)
+            player.bookManager.MoveIn();
     }
 
     public void OnEndCurrentDrag()
@@ -37,11 +41,14 @@ public class CardItemView : MonoBehaviour, ICustomDrag
         }
 
         CameraManager.Instance.ZoomOut();
+        player.canInput = true;
+        player.state = Player.CameraState.standart;
     }
 
     private void Awake()
     {
         UpdateCardText();
+        player = FindAnyObjectByType<Player>();
     }
 
     private void Start()

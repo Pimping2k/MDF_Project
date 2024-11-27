@@ -7,7 +7,7 @@ public class HealthComponent : MonoBehaviour
 
     private void Awake()
     {
-        maxHealth = health;
+        health = maxHealth;
     }
 
     public float Health
