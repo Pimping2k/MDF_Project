@@ -3,11 +3,22 @@ using UnityEngine;
 public class HealthComponent : MonoBehaviour
 {
     [SerializeField] private float health;
+    [SerializeField] private float maxHealth;
+
+    private void Awake()
+    {
+        maxHealth = health;
+    }
 
     public float Health
     {
         get => health;
         set => health = value;
+    }
+
+    public float MaxHealth
+    {
+        get => maxHealth;
     }
 
     public float IncreaseHealth(float value)
