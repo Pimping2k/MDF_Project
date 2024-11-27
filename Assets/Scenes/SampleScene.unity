@@ -564,8 +564,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 905529814}
   - {fileID: 2141803054}
+  - {fileID: 905529814}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -885,9 +885,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  canInput: 1
+  bookManager: {fileID: 2141803050}
   playerHealth: {fileID: 1616121671}
   cameraManager: {fileID: 552847577}
-  bookManager: {fileID: 2141803050}
 --- !u!4 &1616121673
 Transform:
   m_ObjectHideFlags: 0
