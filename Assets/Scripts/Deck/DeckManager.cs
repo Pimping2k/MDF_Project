@@ -6,9 +6,15 @@ public class DeckManager : MonoBehaviour
 {
     public static DeckManager Instance;
     private List<GameObject> playerCards = new List<GameObject>();
-    
+
+    public List<GameObject> PlayerCards
+    {
+        get => playerCards;
+        set => playerCards = value;
+    }
+
     private void Awake()
-        {
+    {
         if (Instance == null)
         {
             Instance = this;
@@ -18,15 +24,5 @@ public class DeckManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    public void ClaimCard(GameObject card)
-    {
-        playerCards.Add(card);
-    }
-
-    public void RemoveCard(GameObject card)
-    {
-        
     }
 }

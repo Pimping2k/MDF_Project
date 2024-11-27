@@ -17,8 +17,14 @@ public class CardItemView : MonoBehaviour, ICustomDrag
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private CardSpawnModelComponent spawnModelComponent;
     private Player player;
-
     private Vector3 originPosition;
+    private int id;
+    
+    public int ID
+    {
+        get => id;
+        set => id = value;
+    }
 
     public void OnCurrentDrag()
     {
@@ -33,6 +39,7 @@ public class CardItemView : MonoBehaviour, ICustomDrag
     {
         if (spawnModelComponent.FindAvailableLocation())
         {
+            Debug.Log(DeckManager.Instance.PlayerCards.Count);
             Debug.Log("Nashel");
         }
         else
