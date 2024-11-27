@@ -17,6 +17,7 @@ public class CardSpawnModelComponent : MonoBehaviour
             if (hit.collider.CompareTag(TagsContainer.PLAYERCARDSLOT))
             {
                 Instantiate(cardModel, hit.transform);
+                DeckManager.Instance.PlayerCards.Remove(gameObject);
                 Destroy(gameObject);
                 return true;
             }

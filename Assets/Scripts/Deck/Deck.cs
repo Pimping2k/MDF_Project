@@ -30,7 +30,8 @@ namespace Deck
             {
                 var newPosition = new Vector3(startPosition.x + i * offsetX, startPosition.y, startPosition.z);
 
-                Instantiate(cards[i], newPosition, Quaternion.identity, deckTransformParent);
+                var cardInstance = Instantiate(cards[i], newPosition, Quaternion.identity, deckTransformParent);
+                DeckManager.Instance.PlayerCards.Add(cardInstance);
             }
         }
     }
