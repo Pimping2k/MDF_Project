@@ -885,6 +885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  canInput: 1
   playerHealth: {fileID: 1616121671}
   cameraManager: {fileID: 552847577}
   bookManager: {fileID: 2141803050}
