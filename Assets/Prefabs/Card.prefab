@@ -293,13 +293,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7430040536444889788}
-  - component: {fileID: 7828403988337050210}
-  - component: {fileID: 1135307803118273750}
-  - component: {fileID: 6087884597908850766}
   - component: {fileID: 337517264592162715}
   - component: {fileID: 1714764086509614985}
   - component: {fileID: 751302046193099557}
+  - component: {fileID: 7828403988337050210}
+  - component: {fileID: 1135307803118273750}
+  - component: {fileID: 6087884597908850766}
   - component: {fileID: 865975204632403498}
+  - component: {fileID: 4002521666573061417}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -332,51 +333,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 120, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7828403988337050210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4739077838961950024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1400b7f8ff619b6419074bbf5d69c0f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 4
---- !u!114 &1135307803118273750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4739077838961950024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd42124a14a79d14bac856735f591a1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 3
---- !u!114 &6087884597908850766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4739077838961950024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe6bab624fcf8bc4aaa0b4056bb2efaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageText: {fileID: 3835410947354493180}
-  healthText: {fileID: 7314318342689923435}
-  passiveImage: {fileID: 2009338082221883537}
-  activeImage: {fileID: 2155319857973100427}
-  HealthComponent: {fileID: 7828403988337050210}
-  DamageComponent: {fileID: 1135307803118273750}
-  rectTransform: {fileID: 7430040536444889788}
 --- !u!222 &337517264592162715
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -460,6 +416,52 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7828403988337050210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4739077838961950024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1400b7f8ff619b6419074bbf5d69c0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 4
+--- !u!114 &1135307803118273750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4739077838961950024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd42124a14a79d14bac856735f591a1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 3
+--- !u!114 &6087884597908850766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4739077838961950024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe6bab624fcf8bc4aaa0b4056bb2efaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageText: {fileID: 3835410947354493180}
+  healthText: {fileID: 7314318342689923435}
+  passiveImage: {fileID: 2009338082221883537}
+  activeImage: {fileID: 2155319857973100427}
+  HealthComponent: {fileID: 7828403988337050210}
+  DamageComponent: {fileID: 1135307803118273750}
+  rectTransform: {fileID: 7430040536444889788}
+  spawnModelComponent: {fileID: 4002521666573061417}
 --- !u!114 &865975204632403498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,6 +475,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 4739077838961950024}
+--- !u!114 &4002521666573061417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4739077838961950024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67fa471cd3c29da42bfdd2ea25b32f40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardModel: {fileID: 3544586082591844547, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
 --- !u!1 &4993073788571607268
 GameObject:
   m_ObjectHideFlags: 0

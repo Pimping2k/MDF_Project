@@ -15,7 +15,8 @@ public class CardItemView : MonoBehaviour, ICustomDrag
     [SerializeField] private DamageComponent DamageComponent;
 
     [SerializeField] private RectTransform rectTransform;
-    
+    [SerializeField] private CardSpawnModelComponent spawnModelComponent;
+
     private Vector3 originPosition;
 
     public void OnCurrentDrag()
@@ -26,8 +27,16 @@ public class CardItemView : MonoBehaviour, ICustomDrag
 
     public void OnEndCurrentDrag()
     {
+        if (spawnModelComponent.FindAvailableLocation())
+        {
+            Debug.Log("Nashel");
+        }
+        else
+        {
+            rectTransform.position = originPosition;
+        }
+
         CameraManager.Instance.ZoomOut();
-        rectTransform.position = originPosition;
     }
 
     private void Awake()
@@ -45,21 +54,4 @@ public class CardItemView : MonoBehaviour, ICustomDrag
         healthText.text = HealthComponent.Health.ToString();
         damageText.text = DamageComponent.Damage.ToString();
     }
-
-    private void OnMouseDrag()
-    {
-        rectTransform.position = Input.mousePosition;
-    }
-
-    private void OnMouseEnter()
-    {
-        rectTransform.position =
-            new Vector3(rectTransform.position.x, rectTransform.position.y + 30, rectTransform.position.z);
-    }
-
-    private void OnMouseExit()
-    {
-        rectTransform.position = originPosition;
-    }
-
 }
