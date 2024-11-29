@@ -18,12 +18,17 @@ public class CardItemView : MonoBehaviour, ICustomDrag
     [SerializeField] private CardSpawnModelComponent spawnModelComponent;
     private Player player;
     private Vector3 originPosition;
-    private int id;
-    
-    public int ID
+
+    public HealthComponent healthComponent
     {
-        get => id;
-        set => id = value;
+        get => HealthComponent;
+        set => HealthComponent = value;
+    }
+
+    public DamageComponent damageComponent
+    {
+        get => DamageComponent;
+        set => DamageComponent = value;
     }
 
     public void OnCurrentDrag()
