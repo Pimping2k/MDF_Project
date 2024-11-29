@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using CardScripts;
 using Containers;
+using CoreMechanic;
 using UnityEngine;
+using GameObject = CardScripts.GameObject;
 
 public class CardSpawnModelComponent : MonoBehaviour
 {
@@ -16,8 +19,11 @@ public class CardSpawnModelComponent : MonoBehaviour
         {
             if (hit.collider.CompareTag(TagsContainer.PLAYERCARDSLOT))
             {
-                Instantiate(cardModel, hit.transform);
+                var cardModelIstance = Instantiate(cardModel, hit.transform);
                 DeckManager.Instance.PlayerCards.Remove(gameObject);
+
+                TableCardManager.Instance.playerCardsInstance.Add(cardModelIstance);
+                
                 Destroy(gameObject);
                 return true;
             }
