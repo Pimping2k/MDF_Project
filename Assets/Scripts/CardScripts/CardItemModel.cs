@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace CardScripts
 {
-    public class GameObject : MonoBehaviour, IHittable,IStepable
+    public class CardItemModel : MonoBehaviour, IHittable,IStepable
     {
         [SerializeField] private CardItemView cardView;
+        public int currentSlotId;
         private float damage;
         private float health;
 

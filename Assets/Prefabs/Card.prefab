@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fa471cd3c29da42bfdd2ea25b32f40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardModel: {fileID: 4376595365360215021}
+  cardModel: {fileID: 7633046597655994975}
 --- !u!1 &4993073788571607268
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,6 +980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardView: {fileID: 6087884597908850766}
+  currentSlotId: 0
 --- !u!4 &8457219134812480472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3278887494930032964, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
