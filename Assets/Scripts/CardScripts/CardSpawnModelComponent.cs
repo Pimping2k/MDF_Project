@@ -1,15 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CardScripts;
 using Containers;
 using CoreMechanic;
 using UnityEngine;
-using GameObject = CardScripts.GameObject;
 
 public class CardSpawnModelComponent : MonoBehaviour
 {
     [SerializeField] private GameObject cardModel;
     private float maxDistance = 10000f;
+
+    private CardItemModel _cardItemModelComponent;
+
+    private void Start()
+    {
+        _cardItemModelComponent = cardModel.GetComponent<CardItemModel>();
+    }
 
     public bool FindAvailableLocation()
     {
@@ -19,11 +26,15 @@ public class CardSpawnModelComponent : MonoBehaviour
         {
             if (hit.collider.CompareTag(TagsContainer.PLAYERCARDSLOT))
             {
-                var cardModelIstance = Instantiate(cardModel, hit.transform);
-                DeckManager.Instance.PlayerCards.Remove(gameObject);
+                int slotID = hit.collider.GetComponent<SlotID>().ID;
+                _cardItemModelComponent.currentSlotId = slotID;
 
+                var cardModelIstance = Instantiate(cardModel, hit.transform);
+
+                DeckManager.Instance.PlayerCards.Remove(gameObject);
                 TableCardManager.Instance.playerCardsInstance.Add(cardModelIstance);
-                
+
+                Debug.Log(_cardItemModelComponent.currentSlotId + " SLOT OF CARD");
                 Destroy(gameObject);
                 return true;
             }

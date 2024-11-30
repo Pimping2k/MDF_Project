@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CardScripts;
 using DefaultNamespace;
 using UnityEngine;
-using GameObject = CardScripts.GameObject;
 
 namespace CoreMechanic
 {
@@ -38,8 +37,6 @@ namespace CoreMechanic
             {
                 if (row[i] != null)
                 {
-                    row[i].Step();
-                    row[i].Hit();
                 }
             }
         }

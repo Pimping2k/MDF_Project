@@ -4,7 +4,6 @@ using CardScripts;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
-using GameObject = CardScripts.GameObject;
 
 namespace CoreMechanic
 {
