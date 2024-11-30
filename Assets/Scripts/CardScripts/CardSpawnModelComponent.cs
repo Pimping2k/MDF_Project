@@ -36,6 +36,7 @@ public class CardSpawnModelComponent : MonoBehaviour
 
                 Debug.Log(_cardItemModelComponent.currentSlotId + " SLOT OF CARD");
                 Destroy(gameObject);
+                
                 return true;
             }
         }
