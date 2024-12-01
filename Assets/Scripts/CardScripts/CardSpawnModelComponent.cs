@@ -26,15 +26,22 @@ public class CardSpawnModelComponent : MonoBehaviour
         {
             if (hit.collider.CompareTag(TagsContainer.PLAYERCARDSLOT))
             {
-                int slotID = hit.collider.GetComponent<SlotID>().ID;
+                var slotComponent = hit.collider.GetComponent<Slot>();
+                if (slotComponent.isOccupied)
+                {
+                    Debug.Log("Occupied");
+                    return false;
+                }
+
+                int slotID = slotComponent.ID;
                 _cardItemModelComponent.currentSlotId = slotID;
-
+                
                 var cardModelIstance = Instantiate(cardModel, hit.transform);
-
+                slotComponent.AssignCard(cardModelIstance);
+                
                 DeckManager.Instance.PlayerCards.Remove(gameObject);
                 TableCardManager.Instance.playerCardsInstance.Add(cardModelIstance);
-
-                Debug.Log(_cardItemModelComponent.currentSlotId + " SLOT OF CARD");
+                
                 Destroy(gameObject);
                 return true;
             }

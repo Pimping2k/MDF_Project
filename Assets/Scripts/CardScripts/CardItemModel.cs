@@ -7,7 +7,7 @@ namespace CardScripts
     public class CardItemModel : MonoBehaviour, IHittable,IStepable
     {
         [SerializeField] private CardItemView cardView;
-        public int currentSlotId;
+        public int currentSlotId = -1;
         private float damage;
         private float health;
 
