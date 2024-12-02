@@ -1832,6 +1832,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1126315368}
     m_Modifications:
+    - target: {fileID: 5864987342445986254, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
+      propertyPath: ID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7011735443436045316, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
       propertyPath: m_Name
       value: PlayerCardSlot
@@ -1916,6 +1920,10 @@ PrefabInstance:
     - target: {fileID: 7011735443436045316, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
       propertyPath: m_Name
       value: PlayerCardSlot (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7243800457600300636, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7267442405831518990, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2281,26 +2289,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 45446640}
     m_Modifications:
-    - target: {fileID: 389902511719163721, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_Color.a
-      value: 0.19607843
-      objectReference: {fileID: 0}
-    - target: {fileID: 389902511719163721, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 389902511719163721, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_Color.g
-      value: 0.7611467
-      objectReference: {fileID: 0}
-    - target: {fileID: 389902511719163721, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4297068384032466252, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: ID
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 5864987342445986254, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
       propertyPath: ID
       value: 7
@@ -2347,18 +2335,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7267442405831518990, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7556031263053123498, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7556031263053123498, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7556031263053123498, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2471,30 +2447,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 45446640}
     m_Modifications:
-    - target: {fileID: 389902511719163721, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_Color.a
-      value: 0.19607843
-      objectReference: {fileID: 0}
-    - target: {fileID: 389902511719163721, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 389902511719163721, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_Color.g
-      value: 0.7611467
-      objectReference: {fileID: 0}
-    - target: {fileID: 389902511719163721, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4297068384032466252, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: ID
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5864987342445986254, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: ID
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 7011735443436045316, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
       propertyPath: m_Name
       value: PlayerCardSlot (8)
@@ -2537,18 +2489,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7267442405831518990, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7556031263053123498, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7556031263053123498, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7556031263053123498, guid: b5e66da3281c7fe459fe980768d39241, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

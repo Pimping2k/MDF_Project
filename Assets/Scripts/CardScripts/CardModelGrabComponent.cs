@@ -11,6 +11,7 @@ using UnityEngine.TestTools;
 public class CardModelGrabComponent : MonoBehaviour
 {
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private Slot currentSlot;
     [SerializeField] private CardItemModel _cardItemModel;
     private Vector3 originPosition;
     private Vector3 offset;
@@ -24,13 +25,18 @@ public class CardModelGrabComponent : MonoBehaviour
     private void OnMouseDown()
     {
         zCoord = mainCamera.WorldToScreenPoint(transform.position).z;
-
+        _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         offset = transform.position - GetMouseWorldPosition();
+
+        if (currentSlot != null)
+        {
+            currentSlot.IsOccupied = false;
+            currentSlot = null;
+        }
     }
 
     private void OnMouseDrag()
     {
-        _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         transform.position = GetMouseWorldPosition() + offset;
     }
 
@@ -45,26 +51,41 @@ public class CardModelGrabComponent : MonoBehaviour
     private void OnMouseUp()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
         if (Physics.Raycast(ray, out var hit, 10f))
         {
-            Debug.Log(hit.collider.tag);
-            Debug.DrawLine(ray.origin, ray.direction*10f,Color.red,10f);
+            Debug.Log($"Hit object tag: {hit.collider.tag}");
+
             if (hit.collider.CompareTag(TagsContainer.PLAYERCARDSLOT))
             {
+                _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Default");
                 var slotComponent = hit.collider.GetComponent<Slot>();
-                if (slotComponent.isOccupied)
+
+                if (slotComponent.IsOccupied && slotComponent != currentSlot)
                 {
-                    Debug.Log("Occupied");
+                    Debug.Log("This slot is already occupied.");
+                    return;
                 }
 
-                int slotID = slotComponent.ID;
-                _cardItemModel.currentSlotId = slotID;
+                if (currentSlot != null && currentSlot != slotComponent)
+                {
+                    currentSlot.IsOccupied = false;
+                    Debug.Log($"Previous slot {currentSlot.ID} freed.");
+                }
 
-                _cardItemModel.transform.parent = hit.transform;
-                _cardItemModel.transform.position = Vector3.zero;
-                _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Default");
+                slotComponent.ClearSlot();
+                currentSlot = slotComponent;
+                currentSlot.IsOccupied = true;
+                Debug.Log($"Slot {currentSlot.ID} is now occupied.");
+
+                _cardItemModel.currentSlotId = slotComponent.ID;
+                _cardItemModel.transform.parent = hit.collider.transform;
+                _cardItemModel.transform.localPosition = Vector3.zero;
             }
+        }
+        else
+        {
+            transform.localPosition = Vector3.zero;
+            _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Default");
         }
     }
 }
