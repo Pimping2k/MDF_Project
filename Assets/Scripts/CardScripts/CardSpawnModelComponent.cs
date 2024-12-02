@@ -27,12 +27,22 @@ public class CardSpawnModelComponent : MonoBehaviour
             if (hit.collider.CompareTag(TagsContainer.PLAYERCARDSLOT))
             {
                 var slotComponent = hit.collider.GetComponent<Slot>();
-                if (slotComponent.isOccupied)
+                
+                if (slotComponent.IsOccupied)
                 {
                     Debug.Log("Occupied");
                     return false;
                 }
 
+                if (_cardItemModelComponent.currentSlotId != -1)
+                {
+                    var previousSlot = SlotManager.Instance.GetSlotByID(_cardItemModelComponent.currentSlotId);
+                    if (previousSlot != null)
+                    {
+                        previousSlot.ClearCard();
+                    }
+                }
+                
                 int slotID = slotComponent.ID;
                 _cardItemModelComponent.currentSlotId = slotID;
                 
