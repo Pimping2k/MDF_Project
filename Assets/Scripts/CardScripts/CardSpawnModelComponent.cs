@@ -43,6 +43,7 @@ public class CardSpawnModelComponent : MonoBehaviour
                     }
                 }
                 
+                
                 int slotID = slotComponent.ID;
                 _cardItemModelComponent.currentSlotId = slotID;
                 
