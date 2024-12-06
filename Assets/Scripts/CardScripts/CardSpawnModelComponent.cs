@@ -33,15 +33,7 @@ public class CardSpawnModelComponent : MonoBehaviour
                     Debug.Log("Occupied");
                     return false;
                 }
-
-                if (_cardItemModelComponent.currentSlotId != -1)
-                {
-                    var previousSlot = SlotManager.Instance.GetSlotByID(_cardItemModelComponent.currentSlotId);
-                    if (previousSlot != null)
-                    {
-                        previousSlot.ClearCard();
-                    }
-                }
+                
                 
                 
                 int slotID = slotComponent.ID;

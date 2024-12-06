@@ -60,6 +60,8 @@ public class CardModelGrabComponent : MonoBehaviour
                 _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Default");
                 var slotComponent = hit.collider.GetComponent<Slot>();
 
+                slotComponent.ClearSlot();
+                
                 if (slotComponent.IsOccupied && slotComponent != currentSlot)
                 {
                     Debug.Log("This slot is already occupied.");
@@ -80,6 +82,11 @@ public class CardModelGrabComponent : MonoBehaviour
                 _cardItemModel.currentSlotId = slotComponent.ID;
                 _cardItemModel.transform.parent = hit.collider.transform;
                 _cardItemModel.transform.localPosition = Vector3.zero;
+            }
+            else
+            {
+                transform.localPosition = Vector3.zero;
+                _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Default");
             }
         }
         else
