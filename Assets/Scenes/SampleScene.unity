@@ -1060,6 +1060,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1900296022473361689, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
+      propertyPath: cards.Array.data[1]
+      value: 
+      objectReference: {fileID: 4739077838961950024, guid: 90377f3f79297334d930a8b654511f6a, type: 3}
+    - target: {fileID: 1900296022473361689, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
+      propertyPath: cards.Array.data[3]
+      value: 
+      objectReference: {fileID: 4739077838961950024, guid: 90377f3f79297334d930a8b654511f6a, type: 3}
+    - target: {fileID: 1900296022473361689, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
+      propertyPath: cards.Array.data[4]
+      value: 
+      objectReference: {fileID: 4739077838961950024, guid: 90377f3f79297334d930a8b654511f6a, type: 3}
+    - target: {fileID: 1900296022473361689, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
       propertyPath: deckTransformParent
       value: 
       objectReference: {fileID: 1958000173}

@@ -34,7 +34,7 @@ public class CardSpawnModelComponent : MonoBehaviour
                     return false;
                 }
                 
-                
+
                 int slotID = slotComponent.ID;
                 _cardItemModelComponent.currentSlotId = slotID;
                 

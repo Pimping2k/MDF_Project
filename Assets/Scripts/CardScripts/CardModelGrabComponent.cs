@@ -16,7 +16,7 @@ public class CardModelGrabComponent : MonoBehaviour
     private Vector3 originPosition;
     private Vector3 offset;
     private float zCoord;
-
+    private SpriteRenderer _spriteRenderer;
     private void Start()
     {
         mainCamera = Camera.main;
@@ -27,7 +27,8 @@ public class CardModelGrabComponent : MonoBehaviour
         zCoord = mainCamera.WorldToScreenPoint(transform.position).z;
         _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         offset = transform.position - GetMouseWorldPosition();
-
+        _spriteRenderer = _cardItemModel.GetComponent<SpriteRenderer>();
+        _spriteRenderer.sortingOrder = 10;
         if (currentSlot != null)
         {
             currentSlot.IsOccupied = false;
@@ -50,20 +51,30 @@ public class CardModelGrabComponent : MonoBehaviour
 
     private void OnMouseUp()
     {
+        _spriteRenderer.sortingOrder = 3;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hit, 10f))
         {
             Debug.Log($"Hit object tag: {hit.collider.tag}");
 
+            if (hit.collider.CompareTag(TagsContainer.PLAYERCARDITEMMODEL))
+            {
+                SwapCards(hit.collider.gameObject);
+            }
+            else
+            {
+                transform.localPosition = Vector3.zero;
+                _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Default");
+            }
+
             if (hit.collider.CompareTag(TagsContainer.PLAYERCARDSLOT))
             {
                 _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Default");
                 var slotComponent = hit.collider.GetComponent<Slot>();
-
-                slotComponent.ClearSlot();
                 
-                if (slotComponent.IsOccupied && slotComponent != currentSlot)
+                if (slotComponent.IsOccupied && slotComponent != currentSlot && currentSlot != null)
                 {
+                    SwapCards(hit.collider.gameObject);
                     Debug.Log("This slot is already occupied.");
                     return;
                 }
@@ -93,6 +104,38 @@ public class CardModelGrabComponent : MonoBehaviour
         {
             transform.localPosition = Vector3.zero;
             _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Default");
+        }
+    }
+
+    private void SwapCards(GameObject targetCard)
+    {
+        var targetCardModel = targetCard.GetComponent<CardModelGrabComponent>();
+        if (targetCardModel == null)
+        {
+            Debug.LogWarning("Целевая карта не содержит компонент CardModelGrabComponent!");
+            return;
+        }
+
+        var tempSlot = currentSlot;
+        currentSlot = targetCardModel.currentSlot;
+        targetCardModel.currentSlot = tempSlot;
+
+        if (currentSlot != null) currentSlot.IsOccupied = true;
+        if (targetCardModel.currentSlot != null) targetCardModel.currentSlot.IsOccupied = true;
+
+        _cardItemModel.currentSlotId = currentSlot?.ID ?? -1;
+        targetCardModel._cardItemModel.currentSlotId = targetCardModel.currentSlot?.ID ?? -1;
+
+        if (currentSlot != null)
+        {
+            _cardItemModel.transform.parent = currentSlot.transform;
+            _cardItemModel.transform.localPosition = Vector3.zero;
+        }
+
+        if (targetCardModel.currentSlot != null)
+        {
+            targetCardModel._cardItemModel.transform.parent = targetCardModel.currentSlot.transform;
+            targetCardModel._cardItemModel.transform.localPosition = Vector3.zero;
         }
     }
 }
