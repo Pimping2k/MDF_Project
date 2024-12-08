@@ -85,7 +85,8 @@ public class CardModelGrabComponent : MonoBehaviour
                     currentSlot.IsOccupied = false;
                     Debug.Log($"Previous slot {currentSlot.ID} freed.");
                 }
-                
+
+                slotComponent.ClearSlot();
                 currentSlot = slotComponent;
                 currentSlot.IsOccupied = true;
                 Debug.Log($"Slot {currentSlot.ID} is now occupied.");

@@ -13,6 +13,12 @@ public class Slot : MonoBehaviour
         set => currentCard = value;
     }
 
+    public GameObject CurrentCard
+    {
+        get => currentCard;
+        set => currentCard = value;
+    }
+
     private bool isOccupied;
 
     public bool IsOccupied
