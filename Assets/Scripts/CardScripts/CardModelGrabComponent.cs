@@ -126,12 +126,20 @@ public class CardModelGrabComponent : MonoBehaviour
         targetCardItemModel.currentSlotId = tmpSlotId;
         
         var tmpParent = _cardItemModel.transform.parent;
-        //_cardItemModel.transform.parent = targetCard.transform.parent;
-        _cardItemModel.transform.parent.DOMove(targetCard.transform.parent.position, 1f);
-        //targetCard.transform.parent = tmpParent;
-        targetCard.transform.parent.DOMove(tmpParent.position, 1f);
-        _cardItemModel.transform.localPosition = Vector3.zero;
-        targetCard.transform.localPosition = Vector3.zero;
+        var targetParent = targetCard.transform.parent;
+
+        _cardItemModel.transform.DOMove(targetParent.position, 1f).OnComplete(() =>
+        {
+            _cardItemModel.transform.parent = targetParent;
+            _cardItemModel.transform.localPosition = Vector3.zero;
+        });
+
+        targetCard.transform.DOMove(tmpParent.position, 1f).OnComplete(() =>
+        {
+            targetCard.transform.parent = tmpParent;
+            targetCard.transform.localPosition = Vector3.zero;
+        });
+
         Debug.Log($"Карты поменялись местами. Новые слоты: карта 1 - {cardItemModel.currentSlotId}, карта 2 - {targetCardItemModel.currentSlotId}");
 
         if (cardItemModelSlotComponent == null || targetCardSlotComponent == null)
@@ -139,9 +147,10 @@ public class CardModelGrabComponent : MonoBehaviour
             Debug.Log("Dont have slot component");
             return;
         }
-
-        cardItemModelSlotComponent.AssignCard(cardItemModel.gameObject);
-        targetCardSlotComponent.AssignCard(targetCard);
+        cardItemModelSlotComponent.ClearCard();
+        targetCardSlotComponent.ClearCard();
+        cardItemModelSlotComponent.AssignCard(targetCard);
+        targetCardSlotComponent.AssignCard(cardItemModel.gameObject);
         
         Debug.Log($"{cardItemModelSlotComponent.ID}",cardItemModelSlotComponent);
         Debug.Log($"{targetCardSlotComponent.ID}",targetCardSlotComponent);

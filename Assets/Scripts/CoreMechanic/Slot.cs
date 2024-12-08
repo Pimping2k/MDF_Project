@@ -36,9 +36,4 @@ public class Slot : MonoBehaviour
         currentCard = null;
         IsOccupied = false;
     }
-
-    public GameObject GetCurrrentCard()
-    {
-        return currentCard;
-    }
 }
