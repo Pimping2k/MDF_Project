@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CardScripts;
 using Containers;
 using CoreMechanic;
+using DG.Tweening;
 using UnityEngine;
 
 public class CardSpawnModelComponent : MonoBehaviour
@@ -38,7 +39,7 @@ public class CardSpawnModelComponent : MonoBehaviour
                 int slotID = slotComponent.ID;
                 _cardItemModelComponent.currentSlotId = slotID;
                 
-                var cardModelIstance = Instantiate(cardModel, hit.transform);
+                var cardModelIstance = Instantiate(cardModel,hit.transform);
                 slotComponent.AssignCard(cardModelIstance);
                 
                 DeckManager.Instance.PlayerCards.Remove(gameObject);

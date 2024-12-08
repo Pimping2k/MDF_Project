@@ -5,7 +5,7 @@ using UnityEngine;
 public class Slot : MonoBehaviour
 {
     public int ID;
-    private GameObject currentCard;
+    [SerializeField] private GameObject currentCard;
 
     public GameObject CurrentCard
     {
@@ -36,7 +36,7 @@ public class Slot : MonoBehaviour
         currentCard = null;
         IsOccupied = false;
     }
-    
+
     public GameObject GetCurrrentCard()
     {
         return currentCard;
