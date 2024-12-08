@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CardScripts;
 using Containers;
 using CoreMechanic;
+using DG.Tweening;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -84,8 +85,7 @@ public class CardModelGrabComponent : MonoBehaviour
                     currentSlot.IsOccupied = false;
                     Debug.Log($"Previous slot {currentSlot.ID} freed.");
                 }
-
-                slotComponent.ClearSlot();
+                
                 currentSlot = slotComponent;
                 currentSlot.IsOccupied = true;
                 Debug.Log($"Slot {currentSlot.ID} is now occupied.");
@@ -109,33 +109,41 @@ public class CardModelGrabComponent : MonoBehaviour
 
     private void SwapCards(GameObject targetCard)
     {
-        var targetCardModel = targetCard.GetComponent<CardModelGrabComponent>();
-        if (targetCardModel == null)
+        var cardItemModel = _cardItemModel.GetComponent<CardItemModel>();
+        var targetCardItemModel = targetCard.GetComponent<CardItemModel>();
+
+        var cardItemModelSlotComponent = _cardItemModel.GetComponentInParent<Slot>();
+        var targetCardSlotComponent = targetCard.GetComponentInParent<Slot>();
+        
+        if (cardItemModel == null || targetCardItemModel == null)
         {
-            Debug.LogWarning("Целевая карта не содержит компонент CardModelGrabComponent!");
+            Debug.LogError("Одна из карт не имеет компонента CardItemModel!");
             return;
         }
 
-        var tempSlot = currentSlot;
-        currentSlot = targetCardModel.currentSlot;
-        targetCardModel.currentSlot = tempSlot;
+        var tmpSlotId = cardItemModel.currentSlotId;
+        cardItemModel.currentSlotId = targetCardItemModel.currentSlotId;
+        targetCardItemModel.currentSlotId = tmpSlotId;
+        
+        var tmpParent = _cardItemModel.transform.parent;
+        //_cardItemModel.transform.parent = targetCard.transform.parent;
+        _cardItemModel.transform.parent.DOMove(targetCard.transform.parent.position, 1f);
+        //targetCard.transform.parent = tmpParent;
+        targetCard.transform.parent.DOMove(tmpParent.position, 1f);
+        _cardItemModel.transform.localPosition = Vector3.zero;
+        targetCard.transform.localPosition = Vector3.zero;
+        Debug.Log($"Карты поменялись местами. Новые слоты: карта 1 - {cardItemModel.currentSlotId}, карта 2 - {targetCardItemModel.currentSlotId}");
 
-        if (currentSlot != null) currentSlot.IsOccupied = true;
-        if (targetCardModel.currentSlot != null) targetCardModel.currentSlot.IsOccupied = true;
-
-        _cardItemModel.currentSlotId = currentSlot?.ID ?? -1;
-        targetCardModel._cardItemModel.currentSlotId = targetCardModel.currentSlot?.ID ?? -1;
-
-        if (currentSlot != null)
+        if (cardItemModelSlotComponent == null || targetCardSlotComponent == null)
         {
-            _cardItemModel.transform.parent = currentSlot.transform;
-            _cardItemModel.transform.localPosition = Vector3.zero;
+            Debug.Log("Dont have slot component");
+            return;
         }
 
-        if (targetCardModel.currentSlot != null)
-        {
-            targetCardModel._cardItemModel.transform.parent = targetCardModel.currentSlot.transform;
-            targetCardModel._cardItemModel.transform.localPosition = Vector3.zero;
-        }
+        cardItemModelSlotComponent.AssignCard(cardItemModel.gameObject);
+        targetCardSlotComponent.AssignCard(targetCard);
+        
+        Debug.Log($"{cardItemModelSlotComponent.ID}",cardItemModelSlotComponent);
+        Debug.Log($"{targetCardSlotComponent.ID}",targetCardSlotComponent);
     }
 }
