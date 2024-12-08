@@ -128,13 +128,13 @@ public class CardModelGrabComponent : MonoBehaviour
         var tmpParent = _cardItemModel.transform.parent;
         var targetParent = targetCard.transform.parent;
 
-        _cardItemModel.transform.DOMove(targetParent.position, 1f).OnComplete(() =>
+        _cardItemModel.transform.DOMove(targetParent.position, 0.5f).OnComplete(() =>
         {
             _cardItemModel.transform.parent = targetParent;
             _cardItemModel.transform.localPosition = Vector3.zero;
         });
 
-        targetCard.transform.DOMove(tmpParent.position, 1f).OnComplete(() =>
+        targetCard.transform.DOMove(tmpParent.position, 0.5f).OnComplete(() =>
         {
             targetCard.transform.parent = tmpParent;
             targetCard.transform.localPosition = Vector3.zero;

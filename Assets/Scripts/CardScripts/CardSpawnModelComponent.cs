@@ -29,6 +29,8 @@ public class CardSpawnModelComponent : MonoBehaviour
             {
                 var slotComponent = hit.collider.GetComponent<Slot>();
                 
+                slotComponent.ClearSlot();
+                
                 if (slotComponent.IsOccupied)
                 {
                     Debug.Log("Occupied");
