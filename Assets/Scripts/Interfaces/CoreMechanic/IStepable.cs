@@ -1,7 +1,9 @@
-﻿namespace DefaultNamespace
+﻿using System.Collections;
+
+namespace DefaultNamespace
 {
     public interface IStepable
     {
-        public void Step();
+        public IEnumerator Step();
     }
 }
