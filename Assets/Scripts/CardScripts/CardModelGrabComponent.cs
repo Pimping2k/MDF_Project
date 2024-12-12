@@ -13,11 +13,19 @@ public class CardModelGrabComponent : MonoBehaviour
 {
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Slot currentSlot;
+
+    public Slot CurrentSlot
+    {
+        get => currentSlot;
+        set => currentSlot = value;
+    }
+
     [SerializeField] private CardItemModel _cardItemModel;
     private Vector3 originPosition;
     private Vector3 offset;
     private float zCoord;
     private SpriteRenderer _spriteRenderer;
+
     private void Start()
     {
         mainCamera = Camera.main;
@@ -30,11 +38,7 @@ public class CardModelGrabComponent : MonoBehaviour
         offset = transform.position - GetMouseWorldPosition();
         _spriteRenderer = _cardItemModel.GetComponent<SpriteRenderer>();
         _spriteRenderer.sortingOrder = 10;
-        if (currentSlot != null)
-        {
-            currentSlot.IsOccupied = false;
-            currentSlot = null;
-        }
+        currentSlot.ClearCard();
     }
 
     private void OnMouseDrag()
@@ -56,8 +60,6 @@ public class CardModelGrabComponent : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hit, 10f))
         {
-            Debug.Log($"Hit object tag: {hit.collider.tag}");
-
             if (hit.collider.CompareTag(TagsContainer.PLAYERCARDITEMMODEL))
             {
                 SwapCards(hit.collider.gameObject);
@@ -72,23 +74,20 @@ public class CardModelGrabComponent : MonoBehaviour
             {
                 _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Default");
                 var slotComponent = hit.collider.GetComponent<Slot>();
-                
+
                 if (slotComponent.IsOccupied && slotComponent != currentSlot && currentSlot != null)
                 {
                     SwapCards(hit.collider.gameObject);
-                    Debug.Log("This slot is already occupied.");
                     return;
                 }
 
                 if (currentSlot != null && currentSlot != slotComponent)
                 {
                     currentSlot.IsOccupied = false;
-                    Debug.Log($"Previous slot {currentSlot.ID} freed.");
                 }
-                
+
                 currentSlot = slotComponent;
                 currentSlot.IsOccupied = true;
-                Debug.Log($"Slot {currentSlot.ID} is now occupied.");
 
                 _cardItemModel.currentSlotId = slotComponent.ID;
                 _cardItemModel.transform.parent = hit.collider.transform;
@@ -114,17 +113,15 @@ public class CardModelGrabComponent : MonoBehaviour
 
         var cardItemModelSlotComponent = _cardItemModel.GetComponentInParent<Slot>();
         var targetCardSlotComponent = targetCard.GetComponentInParent<Slot>();
-        
+
         if (cardItemModel == null || targetCardItemModel == null)
-        {
-            Debug.LogError("Одна из карт не имеет компонента CardItemModel!");
             return;
-        }
+
 
         var tmpSlotId = cardItemModel.currentSlotId;
         cardItemModel.currentSlotId = targetCardItemModel.currentSlotId;
         targetCardItemModel.currentSlotId = tmpSlotId;
-        
+
         var tmpParent = _cardItemModel.transform.parent;
         var targetParent = targetCard.transform.parent;
 
@@ -140,19 +137,13 @@ public class CardModelGrabComponent : MonoBehaviour
             targetCard.transform.localPosition = Vector3.zero;
         });
 
-        Debug.Log($"Карты поменялись местами. Новые слоты: карта 1 - {cardItemModel.currentSlotId}, карта 2 - {targetCardItemModel.currentSlotId}");
-
         if (cardItemModelSlotComponent == null || targetCardSlotComponent == null)
-        {
-            Debug.Log("Dont have slot component");
             return;
-        }
+
+
         cardItemModelSlotComponent.ClearCard();
         targetCardSlotComponent.ClearCard();
         cardItemModelSlotComponent.AssignCard(targetCard);
         targetCardSlotComponent.AssignCard(cardItemModel.gameObject);
-        
-        Debug.Log($"{cardItemModelSlotComponent.ID}",cardItemModelSlotComponent);
-        Debug.Log($"{targetCardSlotComponent.ID}",targetCardSlotComponent);
     }
 }

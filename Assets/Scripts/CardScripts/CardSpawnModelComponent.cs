@@ -13,10 +13,12 @@ public class CardSpawnModelComponent : MonoBehaviour
     private float maxDistance = 10000f;
 
     private CardItemModel _cardItemModelComponent;
+    private CardModelGrabComponent _cardItemModelGrabComponent;
 
     private void Start()
     {
         _cardItemModelComponent = cardModel.GetComponent<CardItemModel>();
+        _cardItemModelGrabComponent = cardModel.GetComponent<CardModelGrabComponent>();
     }
 
     public bool FindAvailableLocation()
@@ -28,25 +30,25 @@ public class CardSpawnModelComponent : MonoBehaviour
             if (hit.collider.CompareTag(TagsContainer.PLAYERCARDSLOT))
             {
                 var slotComponent = hit.collider.GetComponent<Slot>();
-                
-                slotComponent.ClearSlot();
-                
+
                 if (slotComponent.IsOccupied)
                 {
                     Debug.Log("Occupied");
                     return false;
                 }
-                
+
 
                 int slotID = slotComponent.ID;
+
                 _cardItemModelComponent.currentSlotId = slotID;
+                _cardItemModelGrabComponent.CurrentSlot = slotComponent;
                 
-                var cardModelIstance = Instantiate(cardModel,hit.transform);
+                var cardModelIstance = Instantiate(cardModel, hit.transform);
                 slotComponent.AssignCard(cardModelIstance);
                 
                 DeckManager.Instance.PlayerCards.Remove(gameObject);
                 TableCardManager.Instance.playerCardsInstance.Add(cardModelIstance);
-                
+
                 Destroy(gameObject);
                 return true;
             }
