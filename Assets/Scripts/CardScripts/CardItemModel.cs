@@ -60,7 +60,7 @@ namespace CardScripts
                         currentSlot.ClearCard();
                     }
 
-                    yield return transform.DOMove(interactionTransform.parent.position, 0.3f).OnComplete(() =>
+                    yield return transform.DOMove(interactionTransform.parent.position, 0.15f).OnComplete(() =>
                     {
                         currentSlotId = interactionSlot.ID;
                         transform.parent = interactionTransform;
