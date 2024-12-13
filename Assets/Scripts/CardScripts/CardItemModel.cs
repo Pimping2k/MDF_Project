@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Containers;
 using DefaultNamespace;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace CardScripts
@@ -13,8 +15,16 @@ namespace CardScripts
         public int currentSlotId = -1;
         private float damage;
         private float health;
+        
+        private Coroutine stepCoroutine;
+        private bool isMoving = false;
 
-        private Coroutine step;
+        public bool IsMoving
+        {
+            get => isMoving;
+            set => isMoving = value;
+        }
+
         private void Start()
         {
             Initialize();
@@ -31,14 +41,6 @@ namespace CardScripts
             throw new System.NotImplementedException();
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                step = StartCoroutine(Step());
-            }
-        }
-
         public IEnumerator Step()
         {
             if (Physics.BoxCast(transform.position, transform.localScale * 0.5f, this.transform.up,
@@ -50,14 +52,15 @@ namespace CardScripts
                     var interactionTransform = hitInfo.collider.transform;
 
                     if (interactionSlot.IsOccupied)
-                        yield return null;
+                        yield break;
 
                     var currentSlot = this.GetComponentInParent<Slot>();
                     if (currentSlot != null)
                     {
                         currentSlot.ClearCard();
                     }
-                    transform.DOMove(interactionTransform.parent.position, 0.3f).OnComplete(() =>
+
+                    yield return transform.DOMove(interactionTransform.parent.position, 0.3f).OnComplete(() =>
                     {
                         currentSlotId = interactionSlot.ID;
                         transform.parent = interactionTransform;
