@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CardScripts;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
+using Containers;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace CoreMechanic
 {
@@ -13,11 +13,42 @@ namespace CoreMechanic
     {
         public static TableCardManager Instance;
 
+        [SerializeField] private Animator bellAnimator;
+
         public List<GameObject> playerCardsInstance;
         public List<GameObject> enemyCardsInstance;
 
         private Queue<GameObject> cardsQueue = new Queue<GameObject>();
-        
+
+        private IA_PlayerControl _playerControl;
+
+        private void OnEnable()
+        {
+            _playerControl = new IA_PlayerControl();
+            _playerControl.Enable();
+            _playerControl.PlayerMouseInteraction.LMBAction.performed += LMBActionRaycastOnperformed;
+        }
+
+        private void OnDisable()
+        {
+            _playerControl.Disable();
+            _playerControl.PlayerMouseInteraction.LMBAction.performed -= LMBActionRaycastOnperformed;
+        }
+
+        private void LMBActionRaycastOnperformed(InputAction.CallbackContext obj)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out var hitInfo, 10000f))
+            {
+                Debug.DrawRay(ray.origin, ray.direction * 10000f, Color.red, 5f);
+                if (hitInfo.collider.CompareTag(TagsContainer.INTERACTABLEBELL))
+                {
+                    StartCoroutine(ReorganizeCards());
+                }
+            }
+        }
+
         private void Awake()
         {
             if (Instance == null)
@@ -37,7 +68,7 @@ namespace CoreMechanic
         {
             playerCardsInstance.ForEach(Destroy);
             enemyCardsInstance.ForEach(Destroy);
-            
+
             playerCardsInstance.Clear();
             enemyCardsInstance.Clear();
         }
@@ -66,7 +97,9 @@ namespace CoreMechanic
                 if (!card.IsMoving)
                 {
                     card.IsMoving = true;
+                    bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, true);
                     yield return StartCoroutine(card.Step());
+                    bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, false);
                     card.IsMoving = false;
                 }
             }
