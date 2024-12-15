@@ -182,6 +182,34 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerMouseInteraction"",
+            ""id"": ""b6a6eecd-f6b2-4c11-a521-62ee5763aefd"",
+            ""actions"": [
+                {
+                    ""name"": ""LMBAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""546d6e27-7bcd-4d42-a0f9-fd3426222a37"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""cd157ba7-2c4c-4da9-ad44-051225c5e655"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LMBAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -195,6 +223,9 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
         m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
         m_PlayerMovement_Move = m_PlayerMovement.FindAction("Move", throwIfNotFound: true);
         m_PlayerMovement_Interact = m_PlayerMovement.FindAction("Interact", throwIfNotFound: true);
+        // PlayerMouseInteraction
+        m_PlayerMouseInteraction = asset.FindActionMap("PlayerMouseInteraction", throwIfNotFound: true);
+        m_PlayerMouseInteraction_LMBAction = m_PlayerMouseInteraction.FindAction("LMBAction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -368,6 +399,52 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
         }
     }
     public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
+
+    // PlayerMouseInteraction
+    private readonly InputActionMap m_PlayerMouseInteraction;
+    private List<IPlayerMouseInteractionActions> m_PlayerMouseInteractionActionsCallbackInterfaces = new List<IPlayerMouseInteractionActions>();
+    private readonly InputAction m_PlayerMouseInteraction_LMBAction;
+    public struct PlayerMouseInteractionActions
+    {
+        private @IA_PlayerControl m_Wrapper;
+        public PlayerMouseInteractionActions(@IA_PlayerControl wrapper) { m_Wrapper = wrapper; }
+        public InputAction @LMBAction => m_Wrapper.m_PlayerMouseInteraction_LMBAction;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerMouseInteraction; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerMouseInteractionActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerMouseInteractionActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayerMouseInteractionActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerMouseInteractionActionsCallbackInterfaces.Add(instance);
+            @LMBAction.started += instance.OnLMBAction;
+            @LMBAction.performed += instance.OnLMBAction;
+            @LMBAction.canceled += instance.OnLMBAction;
+        }
+
+        private void UnregisterCallbacks(IPlayerMouseInteractionActions instance)
+        {
+            @LMBAction.started -= instance.OnLMBAction;
+            @LMBAction.performed -= instance.OnLMBAction;
+            @LMBAction.canceled -= instance.OnLMBAction;
+        }
+
+        public void RemoveCallbacks(IPlayerMouseInteractionActions instance)
+        {
+            if (m_Wrapper.m_PlayerMouseInteractionActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayerMouseInteractionActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayerMouseInteractionActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayerMouseInteractionActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PlayerMouseInteractionActions @PlayerMouseInteraction => new PlayerMouseInteractionActions(this);
     public interface IPlayerControlActions
     {
         void OnGetDamage(InputAction.CallbackContext context);
@@ -378,5 +455,9 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+    }
+    public interface IPlayerMouseInteractionActions
+    {
+        void OnLMBAction(InputAction.CallbackContext context);
     }
 }

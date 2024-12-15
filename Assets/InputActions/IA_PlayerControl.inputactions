@@ -160,6 +160,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "PlayerMouseInteraction",
+            "id": "b6a6eecd-f6b2-4c11-a521-62ee5763aefd",
+            "actions": [
+                {
+                    "name": "LMBAction",
+                    "type": "Button",
+                    "id": "546d6e27-7bcd-4d42-a0f9-fd3426222a37",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cd157ba7-2c4c-4da9-ad44-051225c5e655",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LMBAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
