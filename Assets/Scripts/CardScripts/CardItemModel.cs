@@ -15,7 +15,7 @@ namespace CardScripts
         public int currentSlotId = -1;
         private float damage;
         private float health;
-        
+
         private Coroutine stepCoroutine;
         private bool isMoving = false;
 
@@ -43,9 +43,10 @@ namespace CardScripts
 
         public IEnumerator Step()
         {
-            if (Physics.BoxCast(transform.position, transform.localScale * 0.5f, this.transform.up,
+            if (Physics.BoxCast(transform.position, transform.localScale * 0.1f, this.transform.up,
                     out var hitInfo, Quaternion.identity, maxDistance: 10f))
             {
+                Debug.DrawRay(transform.position, transform.up, Color.red, 10f);
                 if (hitInfo.collider.CompareTag(TagsContainer.PLAYERCARDSLOT))
                 {
                     var interactionSlot = hitInfo.collider.GetComponent<Slot>();

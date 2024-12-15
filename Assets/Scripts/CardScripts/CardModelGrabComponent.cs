@@ -75,12 +75,6 @@ public class CardModelGrabComponent : MonoBehaviour
                 _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Default");
                 var slotComponent = hit.collider.GetComponent<Slot>();
 
-                if (slotComponent.IsOccupied && slotComponent != currentSlot && currentSlot != null)
-                {
-                    SwapCards(hit.collider.gameObject);
-                    return;
-                }
-
                 if (currentSlot != null && currentSlot != slotComponent)
                 {
                     currentSlot.IsOccupied = false;
