@@ -33,12 +33,12 @@ public class CardModelGrabComponent : MonoBehaviour
 
     private void OnMouseDown()
     {
+        currentSlot.ClearCard();
         zCoord = mainCamera.WorldToScreenPoint(transform.position).z;
         _cardItemModel.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         offset = transform.position - GetMouseWorldPosition();
         _spriteRenderer = _cardItemModel.GetComponent<SpriteRenderer>();
         _spriteRenderer.sortingOrder = 10;
-        currentSlot.ClearCard();
     }
 
     private void OnMouseDrag()
@@ -87,8 +87,9 @@ public class CardModelGrabComponent : MonoBehaviour
                 }
 
                 currentSlot = slotComponent;
+                currentSlot.AssignCard(gameObject);
                 currentSlot.IsOccupied = true;
-
+                
                 _cardItemModel.currentSlotId = slotComponent.ID;
                 _cardItemModel.transform.parent = hit.collider.transform;
                 _cardItemModel.transform.localPosition = Vector3.zero;
