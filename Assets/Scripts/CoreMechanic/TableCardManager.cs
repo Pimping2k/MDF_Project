@@ -17,9 +17,7 @@ namespace CoreMechanic
 
         public List<GameObject> playerCardsInstance;
         public List<GameObject> enemyCardsInstance;
-
-        private Queue<GameObject> cardsQueue = new Queue<GameObject>();
-
+        
         private IA_PlayerControl _playerControl;
 
         private void OnEnable()
@@ -73,34 +71,26 @@ namespace CoreMechanic
             enemyCardsInstance.Clear();
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                StartCoroutine(ReorganizeCards());
-            }
-        }
-
         private IEnumerator ReorganizeCards()
         {
             var playerCardsInstanceModels = playerCardsInstance.Select(c => c.GetComponent<CardItemModel>()).ToArray();
 
-            var sortedCardsModels = playerCardsInstanceModels.OrderBy(c => c.currentSlotId).ToArray();
+            var sortedCardsModels = playerCardsInstanceModels.OrderByDescending(c => c.currentSlotId).ToArray();
 
-            for (int i = 0; i < sortedCardsModels.Length; i++)
+            foreach (var card in sortedCardsModels)
             {
-                var card = sortedCardsModels[i];
-
-                if (card.currentSlotId == i)
-                    continue;
-
-                if (!card.IsMoving)
+                if (card.currentSlotId != Array.IndexOf(sortedCardsModels, card))
                 {
-                    card.IsMoving = true;
-                    bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, true);
-                    yield return StartCoroutine(card.Step());
-                    bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, false);
-                    card.IsMoving = false;
+                    if (!card.IsMoving)
+                    {
+                        card.IsMoving = true;
+                        bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, true);
+                        yield return new WaitForSeconds(0.05f);
+                        yield return StartCoroutine(card.Step());
+                        
+                        bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, false);
+                        card.IsMoving = false;
+                    }
                 }
             }
         }
