@@ -11,24 +11,24 @@ public class CardItemView : MonoBehaviour, ICustomDrag
     [SerializeField] private Image passiveImage;
     [SerializeField] private Image activeImage;
 
-    [SerializeField] private HealthComponent HealthComponent;
-    [SerializeField] private DamageComponent DamageComponent;
+    [SerializeField] private HealthComponent healthComponent;
+    [SerializeField] private DamageComponent damageComponent;
 
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private CardSpawnModelComponent spawnModelComponent;
     private Player player;
     private Vector3 originPosition;
 
-    public HealthComponent healthComponent
+    public HealthComponent HealthComponent
     {
-        get => HealthComponent;
-        set => HealthComponent = value;
+        get => healthComponent;
+        set => healthComponent = value;
     }
 
-    public DamageComponent damageComponent
+    public DamageComponent DamageComponent
     {
-        get => DamageComponent;
-        set => DamageComponent = value;
+        get => damageComponent;
+        set => damageComponent = value;
     }
 
     public void OnCurrentDrag()
@@ -70,7 +70,7 @@ public class CardItemView : MonoBehaviour, ICustomDrag
 
     private void UpdateCardText()
     {
-        healthText.text = HealthComponent.Health.ToString();
-        damageText.text = DamageComponent.Damage.ToString();
+        healthText.text = healthComponent.Health.ToString();
+        damageText.text = damageComponent.Damage.ToString();
     }
 }

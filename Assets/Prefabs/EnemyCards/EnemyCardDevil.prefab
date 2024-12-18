@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 865975204632403498}
   - component: {fileID: 4002521666573061417}
   m_Layer: 0
-  m_Name: CardDevil
+  m_Name: EnemyCardDevil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -362,7 +362,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 22974638, guid: 2283911cd21c3a04ca6ca55fbb6a0f7e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4b16570419516d143a9a07b0a4030d87, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -460,8 +460,8 @@ MonoBehaviour:
   healthText: {fileID: 7314318342689923435}
   passiveImage: {fileID: 2009338082221883537}
   activeImage: {fileID: 2155319857973100427}
-  healthComponent: {fileID: 7828403988337050210}
-  damageComponent: {fileID: 1135307803118273750}
+  healthComponent: {fileID: 0}
+  damageComponent: {fileID: 0}
   rectTransform: {fileID: 7430040536444889788}
   spawnModelComponent: {fileID: 4002521666573061417}
 --- !u!114 &865975204632403498
@@ -962,14 +962,10 @@ PrefabInstance:
       propertyPath: cardView
       value: 
       objectReference: {fileID: 6087884597908850766}
-    - target: {fileID: 4669218876222043820, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
-      propertyPath: DamageComponent
+    - target: {fileID: 6913738743538207692, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
+      propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1135307803118273750}
-    - target: {fileID: 4669218876222043820, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
-      propertyPath: HealthComponent
-      value: 
-      objectReference: {fileID: 7828403988337050210}
+      objectReference: {fileID: 21300000, guid: 4b16570419516d143a9a07b0a4030d87, type: 3}
     - target: {fileID: 6913738743538207692, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
       propertyPath: m_SortingLayer
       value: 0
@@ -985,12 +981,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3544586082591844547, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6220395904981519857}
-    - targetCorrespondingSourceObject: {fileID: 3544586082591844547, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2393867107503293581}
-    - targetCorrespondingSourceObject: {fileID: 3544586082591844547, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6173897567020859567}
   m_SourcePrefab: {fileID: 100100000, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
 --- !u!114 &1734594934300179504 stripped
 MonoBehaviour:
@@ -1029,33 +1019,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 15.558826, y: 21.31, z: 1.1383697}
   m_Center: {x: 0, y: 0, z: -0.46918485}
---- !u!114 &2393867107503293581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7633046597655994975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1400b7f8ff619b6419074bbf5d69c0f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 4
-  maxHealth: 0
---- !u!114 &6173897567020859567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7633046597655994975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd42124a14a79d14bac856735f591a1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 3
 --- !u!4 &8457219134812480472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3278887494930032964, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}

@@ -460,8 +460,8 @@ MonoBehaviour:
   healthText: {fileID: 7314318342689923435}
   passiveImage: {fileID: 2009338082221883537}
   activeImage: {fileID: 2155319857973100427}
-  HealthComponent: {fileID: 7828403988337050210}
-  DamageComponent: {fileID: 1135307803118273750}
+  healthComponent: {fileID: 7828403988337050210}
+  damageComponent: {fileID: 1135307803118273750}
   rectTransform: {fileID: 7430040536444889788}
   spawnModelComponent: {fileID: 4002521666573061417}
 --- !u!114 &865975204632403498
@@ -962,6 +962,14 @@ PrefabInstance:
       propertyPath: cardView
       value: 
       objectReference: {fileID: 6087884597908850766}
+    - target: {fileID: 4669218876222043820, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
+      propertyPath: DamageComponent
+      value: 
+      objectReference: {fileID: 1135307803118273750}
+    - target: {fileID: 4669218876222043820, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
+      propertyPath: HealthComponent
+      value: 
+      objectReference: {fileID: 7828403988337050210}
     - target: {fileID: 6913738743538207692, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
       propertyPath: m_Sprite
       value: 
