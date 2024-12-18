@@ -12,12 +12,13 @@ namespace CardScripts
     public class CardItemModel : MonoBehaviour, IHittable, IStepable
     {
         [SerializeField] private CardItemView cardView;
+        [SerializeField] private HealthComponent HealthComponent;
+        [SerializeField] private DamageComponent DamageComponent;
         public int currentSlotId = -1;
-        private float damage;
-        private float health;
 
         private Coroutine stepCoroutine;
         private bool isMoving = false;
+        private Vector3 originalPosition;
 
         public bool IsMoving
         {
@@ -32,13 +33,28 @@ namespace CardScripts
 
         private void Initialize()
         {
-            damage = cardView.damageComponent.Damage;
-            health = cardView.healthComponent.Health;
+            
         }
 
         public void Hit()
         {
-            throw new System.NotImplementedException();
+            if (Physics.BoxCast(transform.position, transform.localScale * 0.1f, transform.up, out var hitInfo,
+                    Quaternion.identity, maxDistance: 10f))
+            {
+                if (hitInfo.collider.CompareTag(TagsContainer.ENEMYCARD))
+                {
+                    var enemyHealth = hitInfo.collider.GetComponent<HealthComponent>();
+
+                    originalPosition = this.transform.localPosition;
+
+                    this.transform.DOMove(hitInfo.collider.transform.position, 1f).SetEase(Ease.OutCubic).OnComplete((
+                        () =>
+                        {
+                            enemyHealth.DecreaseHealth(DamageComponent.Damage);
+                            this.transform.DOMove(originalPosition, 1f).SetEase(Ease.InCubic).SetDelay(0.2f);
+                        }));
+                }
+            }
         }
 
         public IEnumerator Step()
@@ -68,6 +84,10 @@ namespace CardScripts
                         transform.localPosition = Vector3.zero;
                         interactionSlot.AssignCard(this.gameObject);
                     });
+                }
+                else
+                {
+                    Hit();
                 }
             }
         }
