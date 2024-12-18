@@ -6,6 +6,7 @@ using DefaultNamespace;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using Sequence = DG.Tweening.Sequence;
 
 namespace CardScripts
 {
@@ -20,6 +21,9 @@ namespace CardScripts
         private bool isMoving = false;
         private Vector3 originalPosition;
 
+        private float damage;
+        private float health;
+        
         public bool IsMoving
         {
             get => isMoving;
@@ -33,7 +37,8 @@ namespace CardScripts
 
         private void Initialize()
         {
-            
+            health = HealthComponent.Health;
+            damage = DamageComponent.Damage;
         }
 
         public void Hit()
@@ -44,15 +49,8 @@ namespace CardScripts
                 if (hitInfo.collider.CompareTag(TagsContainer.ENEMYCARD))
                 {
                     var enemyHealth = hitInfo.collider.GetComponent<HealthComponent>();
-
-                    originalPosition = this.transform.localPosition;
-
-                    this.transform.DOMove(hitInfo.collider.transform.position, 1f).SetEase(Ease.OutCubic).OnComplete((
-                        () =>
-                        {
-                            enemyHealth.DecreaseHealth(DamageComponent.Damage);
-                            this.transform.DOMove(originalPosition, 1f).SetEase(Ease.InCubic).SetDelay(0.2f);
-                        }));
+                    
+                    PerformAttack(hitInfo.collider.transform.position,enemyHealth);
                 }
             }
         }
@@ -63,6 +61,7 @@ namespace CardScripts
                     out var hitInfo, Quaternion.identity, maxDistance: 10f))
             {
                 Debug.DrawRay(transform.position, transform.up, Color.red, 10f);
+                Debug.Log(hitInfo.collider.tag);
                 if (hitInfo.collider.CompareTag(TagsContainer.PLAYERCARDSLOT))
                 {
                     var interactionSlot = hitInfo.collider.GetComponent<Slot>();
@@ -90,6 +89,18 @@ namespace CardScripts
                     Hit();
                 }
             }
+        }
+
+        private void PerformAttack(Vector3 targetPosition, HealthComponent enemyHealth)
+        {
+            originalPosition = Vector3.zero;
+            Sequence attackSequence = DOTween.Sequence();
+
+            attackSequence.Append(this.transform.DOMove(targetPosition, 0.3f).SetEase(Ease.OutCubic));
+
+            attackSequence.AppendCallback(() => enemyHealth.DecreaseHealth(DamageComponent.Damage));
+
+            attackSequence.Append(this.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(Ease.InCubic).SetDelay(0.1f));
         }
     }
 }

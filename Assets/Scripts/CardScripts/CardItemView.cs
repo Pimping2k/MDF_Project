@@ -70,7 +70,7 @@ public class CardItemView : MonoBehaviour, ICustomDrag
 
     private void UpdateCardText()
     {
-        healthText.text = HealthComponent.Health.ToString();
-        damageText.text = DamageComponent.Damage.ToString();
+        healthText.text = healthComponent.Health.ToString();
+        damageText.text = damageComponent.Damage.ToString();
     }
 }
