@@ -6,7 +6,7 @@ using UnityEngine;
 public class DeathHandlerComponent : MonoBehaviour
 {
     [SerializeField] private HealthComponent HealthComponent;
-
+    
     private void Start()
     {
         HealthComponent.OnDeath += HealthComponentOnOnDeath;
