@@ -94,10 +94,12 @@ namespace CardScripts
 
         private void PerformAttack(GameObject target, Vector3 targetPosition, HealthComponent enemyHealth)
         {
-            originalPosition = Vector3.zero;
+            originalPosition = this.transform.position;
             Sequence attackSequence = DOTween.Sequence();
 
-            attackSequence.Append(this.transform.DOMove(targetPosition, 0.3f).SetEase(Ease.OutCubic).OnComplete((() =>
+            Vector3 halfwayPosition = Vector3.Lerp(originalPosition, targetPosition, 0.5f);
+            
+            attackSequence.Append(this.transform.DOMove(halfwayPosition, 0.3f).SetEase(Ease.OutCubic).OnComplete((() =>
             {
                 target.transform.DOShakePosition(0.5f, new Vector3(0.15f, 0.15f, 0.15f)).SetEase(Ease.InBounce);
             })));
