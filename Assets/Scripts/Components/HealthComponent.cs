@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
@@ -5,6 +6,8 @@ public class HealthComponent : MonoBehaviour
     [SerializeField] private float health;
     [SerializeField] private float maxHealth;
 
+    public event Action OnDeath;
+    
     private void Awake()
     {
         health = maxHealth;
@@ -30,6 +33,10 @@ public class HealthComponent : MonoBehaviour
     public float DecreaseHealth(float value)
     {
         health -= value;
+        if (health <= 0)
+        {
+            OnDeath?.Invoke();
+        }
         return health;
     }
 }

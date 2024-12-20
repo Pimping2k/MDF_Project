@@ -13,6 +13,7 @@ namespace CardScripts
     public class CardItemModel : MonoBehaviour, IHittable, IStepable
     {
         [SerializeField] private CardItemView cardView;
+        
         [SerializeField] private HealthComponent HealthComponent;
         [SerializeField] private DamageComponent DamageComponent;
         public int currentSlotId = -1;
@@ -23,7 +24,7 @@ namespace CardScripts
 
         private float damage;
         private float health;
-        
+
         public bool IsMoving
         {
             get => isMoving;
@@ -50,7 +51,7 @@ namespace CardScripts
                 {
                     var enemyHealth = hitInfo.collider.GetComponent<HealthComponent>();
                     
-                    PerformAttack(hitInfo.collider.transform.position,enemyHealth);
+                    PerformAttack(hitInfo.collider.gameObject, hitInfo.collider.transform.position, enemyHealth);
                 }
             }
         }
@@ -91,12 +92,15 @@ namespace CardScripts
             }
         }
 
-        private void PerformAttack(Vector3 targetPosition, HealthComponent enemyHealth)
+        private void PerformAttack(GameObject target, Vector3 targetPosition, HealthComponent enemyHealth)
         {
             originalPosition = Vector3.zero;
             Sequence attackSequence = DOTween.Sequence();
 
-            attackSequence.Append(this.transform.DOMove(targetPosition, 0.3f).SetEase(Ease.OutCubic));
+            attackSequence.Append(this.transform.DOMove(targetPosition, 0.3f).SetEase(Ease.OutCubic).OnComplete((() =>
+            {
+                target.transform.DOShakePosition(0.5f, new Vector3(0.15f, 0.15f, 0.15f)).SetEase(Ease.InBounce);
+            })));
 
             attackSequence.AppendCallback(() => enemyHealth.DecreaseHealth(DamageComponent.Damage));
 
