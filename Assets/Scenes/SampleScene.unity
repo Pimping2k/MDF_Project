@@ -238,6 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b57fc0b3be4f549b57adbccffea3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeathDuration: 4
   HealthComponent: {fileID: 99219038}
 --- !u!1001 &132285834
 PrefabInstance:
@@ -1575,6 +1576,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 98f3177140fe45b4cbef32c2d607255a, type: 2}
+    - target: {fileID: 4343458589586824712, guid: b37ea0406efb9ee4591b506ebd6b2b14, type: 3}
+      propertyPath: maxHealth
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5543055600830238664, guid: b37ea0406efb9ee4591b506ebd6b2b14, type: 3}
       propertyPath: m_Name
       value: EnemyCardModel
