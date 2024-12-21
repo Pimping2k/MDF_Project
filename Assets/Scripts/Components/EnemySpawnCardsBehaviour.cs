@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using CoreMechanic;
 using UnityEngine;
@@ -10,16 +11,16 @@ namespace Components
     {
         [SerializeField] private List<GameObject> enemyCards;
         [SerializeField] private TableCardBehaviour tableCardBehaviour;
-
+        [SerializeField][Range(1,10)] private float spawnDuration;
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                SpawnEnemyCards();
+                StartCoroutine(SpawnEnemyCards());
             }
         }
 
-        private void SpawnEnemyCards()
+        private IEnumerator SpawnEnemyCards()
         {
             foreach (var card in enemyCards)
             {
@@ -36,7 +37,9 @@ namespace Components
                         isSlotFound = true;
                 }
                 
+                yield return new WaitForSeconds(0.2f);
                 var enemyCardInstance = Instantiate(card, chosenSlot.transform);
+                AnimateCardSpawn(enemyCardInstance);
                 TableCardManager.Instance.enemyCardsInstance.Add(enemyCardInstance);
                 slotComponent.AssignCard(enemyCardInstance);
             }
@@ -48,6 +51,30 @@ namespace Components
             return chosenSlot = tableCardBehaviour.rows[Random.Range(0, 3)][Random.Range(0, 3)];
         }
 
+        private void AnimateCardSpawn(GameObject card)
+        {
+            var spriteRenderer = card.GetComponent<SpriteRenderer>();
+            var material = spriteRenderer.material;
+            StartCoroutine(DissolveEffect(material));
+        }
+
+        private IEnumerator DissolveEffect(Material material)
+        {
+            float elapsedTime = 0.0f;
+            float amount = 1.0f;
+            float speed = 1;
+            
+            while (elapsedTime < spawnDuration)
+            {
+                amount = 1.0f -(elapsedTime / spawnDuration);
+                material.SetFloat("_DissolveAmount", amount);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            material.SetFloat("_DissolveAmount", 0.0f);
+        }
+        
         public void OnSpawnedEnemyCard()
         {
             //TableCardManager.Instance.enemyCardsInstance.Add(enemyCards);
