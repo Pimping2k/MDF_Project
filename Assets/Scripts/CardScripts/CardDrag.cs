@@ -12,7 +12,7 @@ namespace CardScripts
 
     public class CardDrag : MonoBehaviour, IDragHandler, IEndDragHandler
     {
-        [SerializeField] private UnityEngine.GameObject card;
+        [SerializeField] private GameObject card;
         private ICustomDrag onDrag;
 
         private void Start()

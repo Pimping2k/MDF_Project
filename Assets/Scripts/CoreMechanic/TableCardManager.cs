@@ -17,8 +17,23 @@ namespace CoreMechanic
 
         public List<GameObject> playerCardsInstance;
         public List<GameObject> enemyCardsInstance;
-        
+
         private IA_PlayerControl _playerControl;
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
+            ClearTable();
+        }
 
         private void OnEnable()
         {
@@ -42,40 +57,17 @@ namespace CoreMechanic
                 Debug.DrawRay(ray.origin, ray.direction * 10000f, Color.red, 5f);
                 if (hitInfo.collider.CompareTag(TagsContainer.INTERACTABLEBELL))
                 {
-                    StartCoroutine(ReorganizeCards());
+                    StartCoroutine(ReorganizeCards(playerCardsInstance));
+                    StartCoroutine(ReorganizeCards(enemyCardsInstance));
                 }
             }
         }
-
-        private void Awake()
+        
+        private IEnumerator ReorganizeCards(List<GameObject> cardsInstances)
         {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            var cardsInstanceModels = cardsInstances.Select(c => c.GetComponent<CardItemModel>()).ToArray();
 
-            ClearTable();
-        }
-
-        private void ClearTable()
-        {
-            playerCardsInstance.ForEach(Destroy);
-            enemyCardsInstance.ForEach(Destroy);
-
-            playerCardsInstance.Clear();
-            enemyCardsInstance.Clear();
-        }
-
-        private IEnumerator ReorganizeCards()
-        {
-            var playerCardsInstanceModels = playerCardsInstance.Select(c => c.GetComponent<CardItemModel>()).ToArray();
-
-            var sortedCardsModels = playerCardsInstanceModels.OrderByDescending(c => c.currentSlotId).ToArray();
+            var sortedCardsModels = cardsInstanceModels.OrderByDescending(c => c.currentSlotId).ToArray();
 
             foreach (var card in sortedCardsModels)
             {
@@ -87,12 +79,21 @@ namespace CoreMechanic
                         bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, true);
                         yield return new WaitForSeconds(0.1f);
                         yield return StartCoroutine(card.Step());
-                        
+
                         bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, false);
                         card.IsMoving = false;
                     }
                 }
             }
+        }
+
+        private void ClearTable()
+        {
+            playerCardsInstance.ForEach(Destroy);
+            enemyCardsInstance.ForEach(Destroy);
+
+            playerCardsInstance.Clear();
+            enemyCardsInstance.Clear();
         }
     }
 }

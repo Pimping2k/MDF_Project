@@ -293,6 +293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7430040536444889788}
+  - component: {fileID: 1638608538363378924}
   - component: {fileID: 337517264592162715}
   - component: {fileID: 1714764086509614985}
   - component: {fileID: 751302046193099557}
@@ -301,6 +302,7 @@ GameObject:
   - component: {fileID: 6087884597908850766}
   - component: {fileID: 865975204632403498}
   - component: {fileID: 4002521666573061417}
+  - component: {fileID: 5121715233545407707}
   m_Layer: 0
   m_Name: CardWeedMan
   m_TagString: Untagged
@@ -334,6 +336,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 60, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1638608538363378924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4739077838961950024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!222 &337517264592162715
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -462,8 +484,9 @@ MonoBehaviour:
   activeImage: {fileID: 2155319857973100427}
   healthComponent: {fileID: 7828403988337050210}
   damageComponent: {fileID: 1135307803118273750}
-  rectTransform: {fileID: 7430040536444889788}
+  layoutElementComponent: {fileID: 5121715233545407707}
   spawnModelComponent: {fileID: 4002521666573061417}
+  rectTransform: {fileID: 7430040536444889788}
 --- !u!114 &865975204632403498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,6 +513,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardModel: {fileID: 7633046597655994975}
+--- !u!114 &5121715233545407707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4739077838961950024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &4993073788571607268
 GameObject:
   m_ObjectHideFlags: 0

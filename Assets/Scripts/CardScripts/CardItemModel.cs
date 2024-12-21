@@ -59,7 +59,7 @@ namespace CardScripts
         public IEnumerator Step()
         {
             if (Physics.BoxCast(transform.position, transform.localScale * 0.1f, this.transform.up,
-                    out var hitInfo, Quaternion.identity, maxDistance: 10f))
+                    out var hitInfo, Quaternion.identity, maxDistance: 50f))
             {
                 Debug.DrawRay(transform.position, transform.up, Color.red, 10f);
                 Debug.Log(hitInfo.collider.tag);
