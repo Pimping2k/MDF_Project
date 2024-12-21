@@ -9,6 +9,7 @@ TagManager:
   - PlayerCardItemModel
   - InteractableBell
   - EnemyCard
+  - EnemyCardSlot
   layers:
   - Default
   - TransparentFX

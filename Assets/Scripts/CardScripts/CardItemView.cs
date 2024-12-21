@@ -5,19 +5,20 @@ using UnityEngine.UI;
 
 public class CardItemView : MonoBehaviour, ICustomDrag
 {
+    [Header("Text")]
     [SerializeField] private TMP_Text damageText;
     [SerializeField] private TMP_Text healthText;
-
+    [Header("Images")]
     [SerializeField] private Image passiveImage;
     [SerializeField] private Image activeImage;
-
+    [Header("Components")]
     [SerializeField] private HealthComponent healthComponent;
     [SerializeField] private DamageComponent damageComponent;
-
-    [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private LayoutElement layoutElementComponent;
     [SerializeField] private CardSpawnModelComponent spawnModelComponent;
+    [SerializeField] private RectTransform rectTransform;
+
     private Player player;
-    private Vector3 originPosition;
 
     public HealthComponent HealthComponent
     {
@@ -30,11 +31,20 @@ public class CardItemView : MonoBehaviour, ICustomDrag
         get => damageComponent;
         set => damageComponent = value;
     }
+    
+    private Vector3 originLocalPosition;
+
+    private void Start()
+    {
+        originLocalPosition = rectTransform.localPosition;
+    }
 
     public void OnCurrentDrag()
     {
+        layoutElementComponent.ignoreLayout = true;
         CameraManager.Instance.ZoomIn();
         rectTransform.position = Input.mousePosition;
+        
         player.canInput = false;
         if (player.state == Player.CameraState.book)
             player.bookManager.MoveIn();
@@ -49,7 +59,8 @@ public class CardItemView : MonoBehaviour, ICustomDrag
         }
         else
         {
-            rectTransform.position = originPosition;
+            rectTransform.localPosition = originLocalPosition;
+            layoutElementComponent.ignoreLayout = false;
         }
 
         CameraManager.Instance.ZoomOut();
@@ -61,11 +72,6 @@ public class CardItemView : MonoBehaviour, ICustomDrag
     {
         UpdateCardText();
         player = FindAnyObjectByType<Player>();
-    }
-
-    private void Start()
-    {
-        originPosition = rectTransform.position;
     }
 
     private void UpdateCardText()
