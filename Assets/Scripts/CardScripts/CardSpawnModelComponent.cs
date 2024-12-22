@@ -10,6 +10,7 @@ using UnityEngine;
 public class CardSpawnModelComponent : MonoBehaviour
 {
     [SerializeField] private GameObject cardModel;
+    [SerializeField] private float manaPrice;
     private float maxDistance = 10000f;
 
     private CardItemModel _cardItemModelComponent;
@@ -36,19 +37,20 @@ public class CardSpawnModelComponent : MonoBehaviour
                     Debug.Log("Occupied");
                     return false;
                 }
-
-
+                
                 int slotID = slotComponent.ID;
-
+                
                 _cardItemModelComponent.currentSlotId = slotID;
                 _cardItemModelGrabComponent.CurrentSlot = slotComponent;
                 
                 var cardModelIstance = Instantiate(cardModel, hit.transform);
                 slotComponent.AssignCard(cardModelIstance);
                 
+                ManaComponent.Instance.DecreaseMana(manaPrice);
+                
                 DeckManager.Instance.PlayerCards.Remove(gameObject);
                 TableCardManager.Instance.playerCardsInstance.Add(cardModelIstance);
-
+                
                 Destroy(gameObject);
                 return true;
             }

@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -513,6 +513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardModel: {fileID: 7633046597655994975}
+  manaPrice: 2
 --- !u!114 &5121715233545407707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1008,11 +1009,11 @@ PrefabInstance:
     - target: {fileID: 4669218876222043820, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
       propertyPath: DamageComponent
       value: 
-      objectReference: {fileID: 1135307803118273750}
+      objectReference: {fileID: 4822401168317945488}
     - target: {fileID: 4669218876222043820, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
       propertyPath: HealthComponent
       value: 
-      objectReference: {fileID: 7828403988337050210}
+      objectReference: {fileID: 4045329567665509671}
     - target: {fileID: 6913738743538207692, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1032,6 +1033,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3544586082591844547, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6220395904981519857}
+    - targetCorrespondingSourceObject: {fileID: 3544586082591844547, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4045329567665509671}
+    - targetCorrespondingSourceObject: {fileID: 3544586082591844547, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4822401168317945488}
   m_SourcePrefab: {fileID: 100100000, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}
 --- !u!114 &1734594934300179504 stripped
 MonoBehaviour:
@@ -1070,6 +1077,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 15.558826, y: 21.31, z: 1.1383697}
   m_Center: {x: 0, y: 0, z: -0.46918485}
+--- !u!114 &4045329567665509671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7633046597655994975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1400b7f8ff619b6419074bbf5d69c0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 0
+--- !u!114 &4822401168317945488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7633046597655994975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd42124a14a79d14bac856735f591a1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
 --- !u!4 &8457219134812480472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3278887494930032964, guid: fdb8c34f6acc07b41b3283c9e23f0879, type: 3}

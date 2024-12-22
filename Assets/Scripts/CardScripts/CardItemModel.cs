@@ -13,9 +13,10 @@ namespace CardScripts
     public class CardItemModel : MonoBehaviour, IHittable, IStepable
     {
         [SerializeField] private CardItemView cardView;
-        
+
         [SerializeField] private HealthComponent HealthComponent;
         [SerializeField] private DamageComponent DamageComponent;
+
         public int currentSlotId = -1;
 
         private Coroutine stepCoroutine;
@@ -31,10 +32,17 @@ namespace CardScripts
             set => isMoving = value;
         }
 
+        private void Awake()
+        {
+            HealthComponent = this.GetComponent<HealthComponent>();
+            DamageComponent = this.GetComponent<DamageComponent>();
+        }
+
         private void Start()
         {
             Initialize();
         }
+
 
         private void Initialize()
         {
@@ -50,7 +58,7 @@ namespace CardScripts
                 if (hitInfo.collider.CompareTag(TagsContainer.ENEMYCARD))
                 {
                     var enemyHealth = hitInfo.collider.GetComponent<HealthComponent>();
-                    
+
                     PerformAttack(hitInfo.collider.gameObject, hitInfo.collider.transform.position, enemyHealth);
                 }
             }
@@ -62,7 +70,7 @@ namespace CardScripts
                     out var hitInfo, Quaternion.identity, maxDistance: 50f))
             {
                 Debug.DrawRay(transform.position, transform.up, Color.red, 10f);
-                Debug.Log(hitInfo.collider.tag);
+                Debug.Log($"{this.gameObject.name} found card with tag : " + hitInfo.collider.tag, this);
                 if (hitInfo.collider.CompareTag(TagsContainer.PLAYERCARDSLOT))
                 {
                     var interactionSlot = hitInfo.collider.GetComponent<Slot>();
@@ -98,7 +106,7 @@ namespace CardScripts
             Sequence attackSequence = DOTween.Sequence();
 
             Vector3 halfwayPosition = Vector3.Lerp(originalPosition, targetPosition, 0.5f);
-            
+
             attackSequence.Append(this.transform.DOMove(halfwayPosition, 0.3f).SetEase(Ease.OutCubic).OnComplete((() =>
             {
                 target.transform.DOShakePosition(0.5f, new Vector3(0.15f, 0.15f, 0.15f)).SetEase(Ease.InBounce);
