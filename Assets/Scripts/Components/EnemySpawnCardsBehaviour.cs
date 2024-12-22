@@ -9,9 +9,12 @@ namespace Components
 {
     public class EnemySpawnCardsBehaviour : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> enemyCards;
         [SerializeField] private TableCardBehaviour tableCardBehaviour;
-        [SerializeField][Range(1,10)] private float spawnDuration;
+        [SerializeField] [Range(1, 10)] private float spawnDuration;
+        [SerializeField] [Range(0.1f, 2f)] private float spawnDelay = 0.2f;
+
+        private EnemyCardsContainer enemyCardsContainer;
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -20,29 +23,52 @@ namespace Components
             }
         }
 
+        private void OnEnable()
+        {
+            EnemyManager.OnEnemyChanged += UpdateEnemyCards;
+        }
+
+        private void OnDisable()
+        {
+            EnemyManager.OnEnemyChanged -= UpdateEnemyCards;
+        }
+
+        private void UpdateEnemyCards(EnemyCardsContainer newEnemyCardsContainer)
+        {
+            enemyCardsContainer = newEnemyCardsContainer;
+        }
+
         private IEnumerator SpawnEnemyCards()
         {
-            foreach (var card in enemyCards)
+            foreach (var card in enemyCardsContainer.cards)
             {
-                GameObject chosenSlot = null;
-                Slot slotComponent = null;
-                bool isSlotFound = false;
+                yield return new WaitForSeconds(spawnDelay);
 
-                while (!isSlotFound)
-                {
-                    chosenSlot = ChooseAvailableSlot();
-                    slotComponent = chosenSlot.GetComponent<Slot>();
+                GameObject chosenSlot = FindAvailableSlot();
+                var slotComponent = chosenSlot.GetComponent<Slot>();
 
-                    if (!slotComponent.IsOccupied)
-                        isSlotFound = true;
-                }
-                
-                yield return new WaitForSeconds(0.2f);
                 var enemyCardInstance = Instantiate(card, chosenSlot.transform);
                 AnimateCardSpawn(enemyCardInstance);
                 TableCardManager.Instance.enemyCardsInstance.Add(enemyCardInstance);
                 slotComponent.AssignCard(enemyCardInstance);
             }
+        }
+
+        private GameObject FindAvailableSlot()
+        {
+            GameObject chosenSlot = null;
+            Slot slotComponent = null;
+
+            while (true)
+            {
+                chosenSlot = ChooseAvailableSlot();
+                slotComponent = chosenSlot.GetComponent<Slot>();
+
+                if (!slotComponent.IsOccupied)
+                    break;
+            }
+
+            return chosenSlot;
         }
 
         private GameObject ChooseAvailableSlot()
@@ -63,10 +89,10 @@ namespace Components
             float elapsedTime = 0.0f;
             float amount = 1.0f;
             float speed = 1;
-            
+
             while (elapsedTime < spawnDuration)
             {
-                amount = 1.0f -(elapsedTime / spawnDuration);
+                amount = 1.0f - (elapsedTime / spawnDuration);
                 material.SetFloat("_DissolveAmount", amount);
                 elapsedTime += Time.deltaTime;
                 yield return null;
@@ -74,7 +100,8 @@ namespace Components
 
             material.SetFloat("_DissolveAmount", 0.0f);
         }
-        
+
+
         public void OnSpawnedEnemyCard()
         {
             //TableCardManager.Instance.enemyCardsInstance.Add(enemyCards);
