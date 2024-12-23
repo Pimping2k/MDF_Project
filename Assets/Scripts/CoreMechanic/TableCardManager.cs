@@ -62,7 +62,7 @@ namespace CoreMechanic
                 }
             }
         }
-        
+
         private IEnumerator ReorganizeCards(List<GameObject> cardsInstances)
         {
             var cardsInstanceModels = cardsInstances.Select(c => c.GetComponent<CardItemModel>()).ToArray();
@@ -71,18 +71,15 @@ namespace CoreMechanic
 
             foreach (var card in sortedCardsModels)
             {
-                if (card.currentSlotId != Array.IndexOf(sortedCardsModels, card))
+                if (!card.IsMoving)
                 {
-                    if (!card.IsMoving)
-                    {
-                        card.IsMoving = true;
-                        bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, true);
-                        yield return new WaitForSeconds(0.1f);
-                        yield return StartCoroutine(card.Step());
+                    card.IsMoving = true;
+                    bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, true);
+                    yield return new WaitForSeconds(0.1f);
+                    yield return StartCoroutine(card.Step());
 
-                        bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, false);
-                        card.IsMoving = false;
-                    }
+                    bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, false);
+                    card.IsMoving = false;
                 }
             }
         }
