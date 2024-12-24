@@ -21,6 +21,7 @@ namespace CardScripts
 
         private Coroutine stepCoroutine;
         private bool isMoving = false;
+        private bool isHitting = false;
         private Vector3 originalPosition;
 
         private float damage;
@@ -30,6 +31,12 @@ namespace CardScripts
         {
             get => isMoving;
             set => isMoving = value;
+        }
+
+        public bool IsHitting
+        {
+            get => isHitting;
+            set => isHitting = value;
         }
 
         private void Awake()
@@ -102,6 +109,7 @@ namespace CardScripts
 
         private void PerformAttack(GameObject target, Vector3 targetPosition, HealthComponent enemyHealth)
         {
+            isMoving = true;
             originalPosition = this.transform.position;
             Sequence attackSequence = DOTween.Sequence();
 
@@ -115,6 +123,7 @@ namespace CardScripts
             attackSequence.AppendCallback(() => enemyHealth.DecreaseHealth(DamageComponent.Damage));
 
             attackSequence.Append(this.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(Ease.InCubic).SetDelay(0.1f));
+            isMoving = false;
         }
     }
 }

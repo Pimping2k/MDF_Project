@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5790775065088986703}
   - component: {fileID: 2463061291961724103}
-  - component: {fileID: 4400122543924875687}
-  - component: {fileID: 5759842870538797491}
+  - component: {fileID: 3769248065453609571}
   - component: {fileID: 8309613953521295462}
   - component: {fileID: 4343458589586824712}
   - component: {fileID: 4820150908872837100}
@@ -89,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4400122543924875687
+--- !u!114 &3769248065453609571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,28 +97,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5543055600830238664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16a54820e82c4216872bd640bfb083a6, type: 3}
+  m_Script: {fileID: 11500000, guid: cc6454ea4b88b2a4da3e04d68013c29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardView: {fileID: 0}
   HealthComponent: {fileID: 4343458589586824712}
   DamageComponent: {fileID: 4820150908872837100}
-  currentSlotId: 0
---- !u!114 &5759842870538797491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5543055600830238664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 734f7bb5f05cd3b4aa4d2c140c5d8801, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  currentSlot: {fileID: 0}
-  _cardItemModel: {fileID: 4400122543924875687}
+  currentSlotId: -1
 --- !u!65 &8309613953521295462
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -154,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 0
+  maxHealth: 5
 --- !u!114 &4820150908872837100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,4 +150,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd42124a14a79d14bac856735f591a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 3

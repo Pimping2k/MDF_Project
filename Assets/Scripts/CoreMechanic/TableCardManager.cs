@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CardScripts;
 using Containers;
+using UnityEditor.Searcher;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -58,7 +59,6 @@ namespace CoreMechanic
                 if (hitInfo.collider.CompareTag(TagsContainer.INTERACTABLEBELL))
                 {
                     StartCoroutine(ReorganizeCards(playerCardsInstance));
-                    StartCoroutine(ReorganizeCards(enemyCardsInstance));
                 }
             }
         }
@@ -79,6 +79,29 @@ namespace CoreMechanic
                     yield return StartCoroutine(card.Step());
 
                     bellAnimator.SetBool(AnimationStatesContainer.ISCLICKED, false);
+                    card.IsMoving = false;
+                }
+            }
+
+            StartCoroutine(ReorganizeEnemyCards(enemyCardsInstance));
+        }
+        
+        private IEnumerator ReorganizeEnemyCards(List<GameObject> cardsInstances)
+        {
+            yield return new WaitForSeconds(0.75f);
+            
+            var cardsInstanceModels = cardsInstances.Select(c => c.GetComponent<EnemyCardItemModel>()).ToArray();
+
+            var sortedCardsModels = cardsInstanceModels.OrderByDescending(c => c.currentSlotId).ToArray();
+
+            foreach (var card in sortedCardsModels)
+            {
+                if (!card.IsMoving)
+                {
+                    card.IsMoving = true;
+                    yield return new WaitForSeconds(0.1f);
+                    yield return StartCoroutine(card.Step());
+                    
                     card.IsMoving = false;
                 }
             }
