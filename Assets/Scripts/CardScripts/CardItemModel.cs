@@ -5,6 +5,7 @@ using Containers;
 using CoreMechanic;
 using DefaultNamespace;
 using DG.Tweening;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using Sequence = DG.Tweening.Sequence;
@@ -14,7 +15,7 @@ namespace CardScripts
     public class CardItemModel : MonoBehaviour, IHittable, IStepable
     {
         [SerializeField] private CardItemView cardView;
-
+        [SerializeField] private TMP_Text floatingText;
         [SerializeField] private HealthComponent HealthComponent;
         [SerializeField] private DamageComponent DamageComponent;
 
@@ -131,6 +132,7 @@ namespace CardScripts
 
             Vector3 halfwayPosition = Vector3.Lerp(originalPosition, targetPosition, 0.5f);
 
+            ShowFloatingText(DamageComponent.Damage);
             attackSequence.Append(this.transform.DOMove(halfwayPosition, 0.3f).SetEase(Ease.OutCubic).OnComplete((() =>
             {
                 target.transform.DOShakePosition(0.5f, new Vector3(0.15f, 0.15f, 0.15f)).SetEase(Ease.InBounce);
@@ -138,7 +140,8 @@ namespace CardScripts
 
             attackSequence.AppendCallback(() => enemyHealth.DecreaseHealth(DamageComponent.Damage));
 
-            attackSequence.Append(this.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(Ease.InCubic).SetDelay(0.1f)).OnComplete(() => isHitting = false);
+            attackSequence.Append(this.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(Ease.InCubic).SetDelay(0.1f))
+                .OnComplete(() => isHitting = false);
         }
 
         private void Death()
@@ -146,6 +149,36 @@ namespace CardScripts
             TableCardManager.Instance.playerCardsQueue.Remove(this);
             TableCardManager.Instance.playerCardsInstance.Remove(this.gameObject);
             Destroy(this.gameObject);
+        }
+
+        private void ShowFloatingText(float damage)
+        {
+            floatingText.gameObject.SetActive(true);
+
+            if (damage > 5)
+            {
+                floatingText.color = new Color(0.6f, 0.8f, 0.1f, 1f);
+            }
+            else if (damage < 5)
+            {
+                floatingText.color = new Color(0.33f, 0.85f, 0.92f, 1f);
+            }
+            else if (damage > 8)
+            {
+                floatingText.color = new Color(0.6f, 0.8f, 0.1f, 1f);
+            }
+
+            floatingText.text = $"{damage}";
+            var floatingTextScale = floatingText.GetComponent<Transform>();
+            var originTextScale = floatingTextScale.localScale;
+            floatingText.transform.DOScale(floatingTextScale.localScale * 2f, 1f)
+                .OnComplete((() => floatingTextScale.localScale = originTextScale));
+            floatingText.transform.DOShakePosition(1f, 5f);
+            floatingText.DOFade(0f, 1f).OnComplete((() =>
+            {
+                floatingText.gameObject.SetActive(false);
+                floatingText.alpha = 1f;
+            }));
         }
     }
 }
