@@ -13,6 +13,23 @@ namespace CoreMechanic
         [SerializeField] private Transform spawnPoint;
 
         private GameObject currentEnemy;
+        private HealthComponent healthComponent;
+        
+        public HealthComponent HealthComponent => healthComponent;
+        
+        public static EnemyManager Instance;
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         private void OnEnable()
         {
@@ -27,7 +44,9 @@ namespace CoreMechanic
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             SpawnEnemy(Random.Range(0, enemyPrefabs.Length)); // Спавним врага, как только сцена загружена
+            healthComponent = currentEnemy.GetComponent<HealthComponent>();
         }
+        
         public void SpawnEnemy(int enemyIndex)
         {
             if (currentEnemy != null)

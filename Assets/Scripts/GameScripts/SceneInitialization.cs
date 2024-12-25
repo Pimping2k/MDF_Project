@@ -11,6 +11,7 @@ namespace GameScripts
         private WaitForSeconds waitForFade;
         private void OnEnable()
         {
+            screen.gameObject.SetActive(true);
             waitForFade = new WaitForSeconds(fadeSpeed);
             screen.CrossFadeAlpha(0f, fadeSpeed, false);
             StartCoroutine(DisableScreen());

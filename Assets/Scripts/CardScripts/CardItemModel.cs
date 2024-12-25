@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Containers;
+using CoreMechanic;
 using DefaultNamespace;
 using DG.Tweening;
 using Unity.VisualScripting;
@@ -50,6 +51,15 @@ namespace CardScripts
             Initialize();
         }
 
+        private void OnEnable()
+        {
+            HealthComponent.OnDeath += Death;
+        }
+
+        private void OnDestroy()
+        {
+            HealthComponent.OnDeath -= Death;
+        }
 
         private void Initialize()
         {
@@ -65,6 +75,12 @@ namespace CardScripts
                 if (hitInfo.collider.CompareTag(TagsContainer.ENEMYCARD))
                 {
                     var enemyHealth = hitInfo.collider.GetComponent<HealthComponent>();
+
+                    PerformAttack(hitInfo.collider.gameObject, hitInfo.collider.transform.position, enemyHealth);
+                }
+                else if (hitInfo.collider.CompareTag(TagsContainer.ENEMYCARDSLOT))
+                {
+                    var enemyHealth = EnemyManager.Instance.HealthComponent;
 
                     PerformAttack(hitInfo.collider.gameObject, hitInfo.collider.transform.position, enemyHealth);
                 }
@@ -122,8 +138,14 @@ namespace CardScripts
 
             attackSequence.AppendCallback(() => enemyHealth.DecreaseHealth(DamageComponent.Damage));
 
-            attackSequence.Append(this.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(Ease.InCubic).SetDelay(0.1f));
-            isMoving = false;
+            attackSequence.Append(this.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(Ease.InCubic).SetDelay(0.1f)).OnComplete(() => isHitting = false);
+        }
+
+        private void Death()
+        {
+            TableCardManager.Instance.playerCardsQueue.Remove(this);
+            TableCardManager.Instance.playerCardsInstance.Remove(this.gameObject);
+            Destroy(this.gameObject);
         }
     }
 }
