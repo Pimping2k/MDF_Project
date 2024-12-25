@@ -1,8 +1,13 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance;
+    
+    [SerializeField] private HealthComponent healthComponent;
+    
     [Header("States")]
     public CameraState state;
     public enum CameraState
@@ -19,6 +24,20 @@ public class Player : MonoBehaviour
     [SerializeField] private HealthComponent playerHealth;
     [SerializeField] private CameraManager cameraManager;
     private IA_PlayerControl playerControl;
+    
+    public HealthComponent HealthComponent => healthComponent;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void OnEnable()
     {

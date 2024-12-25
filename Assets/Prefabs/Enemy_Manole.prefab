@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7118515508537279415}
   - component: {fileID: 4530349567922426346}
   - component: {fileID: -4621255631661109248}
+  - component: {fileID: 8614504592415624201}
   m_Layer: 0
   m_Name: Enemy_Manole
   m_TagString: Untagged
@@ -50,6 +51,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -101,3 +105,17 @@ MonoBehaviour:
   - {fileID: 5543055600830238664, guid: b37ea0406efb9ee4591b506ebd6b2b14, type: 3}
   - {fileID: 5543055600830238664, guid: b37ea0406efb9ee4591b506ebd6b2b14, type: 3}
   - {fileID: 5543055600830238664, guid: b37ea0406efb9ee4591b506ebd6b2b14, type: 3}
+--- !u!114 &8614504592415624201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914516904118368516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1400b7f8ff619b6419074bbf5d69c0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 10
