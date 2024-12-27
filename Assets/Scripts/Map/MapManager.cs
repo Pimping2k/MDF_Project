@@ -15,6 +15,8 @@ public class MapManager : MonoBehaviour
     public float mapWidth = 10f;
     public float mapHeight = 10f;
 
+    public List<Transform> cotainersMapNodes = new List<Transform>();
+
     public Transform playerFigure;
     public List<MapNode> mapNodes = new List<MapNode>();
     public MapNode currentNode;
@@ -34,16 +36,11 @@ public class MapManager : MonoBehaviour
     {
         for (int i = 0; i < nodeCount; i++)
         {
-            Vector3 randomPosition = new Vector3(
-                Random.Range(-mapArea.position.x, mapArea.position.x), 
-                Random.Range(-mapArea.position.y, mapArea.position.y), 
-                0f);
-
-            GameObject nodeObject = Instantiate(nodePrefab, randomPosition,Quaternion.identity,canvas.transform);
+            GameObject nodeObject = Instantiate(nodePrefab, cotainersMapNodes[i].transform);
             MapNode node = nodeObject.GetComponent<MapNode>();
             mapNodes.Add(node);
         }
-        
+
         for (int i = 0; i < mapNodes.Count - 1; i++)
         {
             mapNodes[i].AddConnection(mapNodes[i + 1]);
@@ -78,8 +75,9 @@ public class MapManager : MonoBehaviour
     private void InitializeMap()
     {
         currentNode = mapNodes[0];
+        playerFigure.transform.position = currentNode.transform.position;
         currentNode.isAccessible = true;
-        
+
         UpdateAccessibleNodes();
     }
 

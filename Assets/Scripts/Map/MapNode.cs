@@ -10,10 +10,15 @@ public class MapNode : MonoBehaviour
     public List<MapNode> ConnectedMapNodes;
     public int levelIndex;
     public bool isAccessible = true;
+    private LineRenderer lr;
 
     private void Start()
     {
         this.GetComponent<Button>().onClick.AddListener(OnSelectedNode);
+        lr = this.GetComponent<LineRenderer>();
+        
+        if(lr != null)
+            DrawLine();
     }
 
     private void OnSelectedNode()
@@ -42,6 +47,14 @@ public class MapNode : MonoBehaviour
             node.ConnectedMapNodes.Remove(this);
         }
     }
-    
-    
+
+    private void DrawLine()
+    {
+        lr.positionCount = ConnectedMapNodes.Count;
+
+        for (int i = 0; i < ConnectedMapNodes.Count; i++)
+        {
+            lr.SetPosition(i,ConnectedMapNodes[i].transform.position);
+        }
+    }
 }
