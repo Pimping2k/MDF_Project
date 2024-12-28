@@ -6,19 +6,22 @@ using UnityEngine.UI;
 
 public class MapNode : MonoBehaviour
 {
+    [SerializeField] private Image line;
     public event Action<MapNode> OnMapNodeSelected;
     public List<MapNode> ConnectedMapNodes;
     public int levelIndex;
     public bool isAccessible = true;
-    private LineRenderer lr;
 
+    private Vector3 startPos;
+    private RectTransform lineRectTransform;
     private void Start()
     {
         this.GetComponent<Button>().onClick.AddListener(OnSelectedNode);
-        lr = this.GetComponent<LineRenderer>();
-        
-        if(lr != null)
-            DrawLine();
+        if (line!=null)
+        {
+            startPos = this.transform.position;
+        }
+        DrawLine();
     }
 
     private void OnSelectedNode()
@@ -50,11 +53,20 @@ public class MapNode : MonoBehaviour
 
     private void DrawLine()
     {
-        lr.positionCount = ConnectedMapNodes.Count;
-
-        for (int i = 0; i < ConnectedMapNodes.Count; i++)
+        foreach (var mapNode in ConnectedMapNodes)
         {
-            lr.SetPosition(i,ConnectedMapNodes[i].transform.position);
+            var lineInstance = Instantiate(line, this.transform);
+            lineRectTransform = lineInstance.GetComponent<RectTransform>();
+            
+            Vector3 targetPos = mapNode.transform.position;
+            float distance = Vector3.Distance(startPos, targetPos);
+            lineRectTransform.sizeDelta = new Vector2(distance, lineRectTransform.sizeDelta.y);
+
+            Vector3 direction = (targetPos - startPos).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            lineRectTransform.rotation = Quaternion.Euler(0, 0, angle);
+
+            lineRectTransform.position = (startPos + targetPos) / 2f;
         }
     }
 }

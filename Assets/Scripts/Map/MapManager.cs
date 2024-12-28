@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 using UnityEditor.Searcher;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -43,19 +44,25 @@ public class MapManager : MonoBehaviour
 
         for (int i = 0; i < mapNodes.Count - 1; i++)
         {
-            mapNodes[i].AddConnection(mapNodes[i + 1]);
-        }
-
-        int additionalConnections = Random.Range(nodeCount / 2, nodeCount);
-        for (int i = 0; i < additionalConnections; i++)
-        {
-            MapNode nodeA = mapNodes[Random.Range(0, mapNodes.Count)];
-            MapNode nodeB = mapNodes[Random.Range(0, mapNodes.Count)];
-
-            if (nodeA != nodeB)
+            if (i == mapNodes.Count - 1)
             {
-                nodeA.AddConnection(nodeB);
+                break;
             }
+
+            if (i == 0)
+            {
+                mapNodes[i].AddConnection(mapNodes[i + 1]);
+                mapNodes[i].AddConnection(mapNodes[i + 2]);
+                mapNodes[i].AddConnection(mapNodes[i + 3]);
+                continue;
+            }
+
+            if (i + 1 < mapNodes.Count)
+                mapNodes[i].AddConnection(mapNodes[i + 1]);
+            if (i + 2 < mapNodes.Count && Random.value > 0.5f)
+                mapNodes[i].AddConnection(mapNodes[i + 2]);
+            if (i % 2 == 0 && i + 3 < mapNodes.Count)
+                mapNodes[i].AddConnection(mapNodes[i + 3]);
         }
     }
 
@@ -76,7 +83,7 @@ public class MapManager : MonoBehaviour
     {
         currentNode = mapNodes[0];
         playerFigure.transform.position = currentNode.transform.position;
-        currentNode.isAccessible = true;
+        currentNode.isAccessible = false;
 
         UpdateAccessibleNodes();
     }
