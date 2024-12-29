@@ -3,20 +3,21 @@ using DG.Tweening;
 using UnityEngine;
 using System.Collections;
 using System.Linq;
+using UnityEditor.Experimental;
 using UnityEditor.Searcher;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class MapManager : MonoBehaviour
 {
-    public GameObject canvas;
+    [SerializeField] [Range(0, 1)] private float branchingChance = 0.9f;
     public Transform mapArea;
     public GameObject nodePrefab;
     public int nodeCount = 10;
-    public float mapWidth = 10f;
-    public float mapHeight = 10f;
 
-    public List<Transform> cotainersMapNodes = new List<Transform>();
+    public GameObject MapNodeContainerPrefab;
+    public List<GameObject> containersMapNodes = new List<GameObject>();
 
     public Transform playerFigure;
     public List<MapNode> mapNodes = new List<MapNode>();
@@ -35,20 +36,66 @@ public class MapManager : MonoBehaviour
 
     private void GenerateMap()
     {
+        float startXPos = 200f;
+        float startYPos = 300f;
+        int rowsCount = 3;
         for (int i = 0; i < nodeCount; i++)
         {
-            GameObject nodeObject = Instantiate(nodePrefab, cotainersMapNodes[i].transform);
+            var nodeContainerInstance = Instantiate(MapNodeContainerPrefab, mapArea.transform);
+
+            if (i == 0)
+            {
+                nodeContainerInstance.transform.position = new Vector3(startXPos, startYPos);
+                containersMapNodes.Add(nodeContainerInstance);
+                continue;
+            }
+
+            if (i == nodeCount - 1)
+            {
+                nodeContainerInstance.transform.position = new Vector3(200f + startXPos, 300f);
+                containersMapNodes.Add(nodeContainerInstance);
+                break;
+            }
+
+            int currentRow = i % rowsCount;
+
+            switch (currentRow)
+            {
+                case 0:
+                    nodeContainerInstance.transform.position = new Vector3(
+                        startXPos + Random.Range(90f, 120f),
+                        startYPos + Random.Range(60f, 100f));
+                    break;
+                case 1:
+                    nodeContainerInstance.transform.position = new Vector3(
+                        startXPos + Random.Range(90f, 110f),
+                        startYPos + Random.Range(-5f, 10f));
+                    break;
+                case 2:
+                    nodeContainerInstance.transform.position = new Vector3(
+                        startXPos + Random.Range(90f, 130f),
+                        startYPos + Random.Range(-100f, -70f));
+                    break;
+            }
+
+            if (currentRow == rowsCount - 1)
+            {
+                startXPos += Random.Range(100f, 130f);
+            }
+
+            containersMapNodes.Add(nodeContainerInstance);
+        }
+
+
+        for (int i = 0; i < nodeCount; i++)
+        {
+            GameObject nodeObject = Instantiate(nodePrefab, containersMapNodes[i].transform);
             MapNode node = nodeObject.GetComponent<MapNode>();
             mapNodes.Add(node);
         }
 
-        for (int i = 0; i < mapNodes.Count - 1; i++)
+        for (int i = 0; i < nodeCount; i++)
         {
-            if (i == mapNodes.Count - 1)
-            {
-                break;
-            }
-
             if (i == 0)
             {
                 mapNodes[i].AddConnection(mapNodes[i + 1]);
@@ -57,12 +104,25 @@ public class MapManager : MonoBehaviour
                 continue;
             }
 
-            if (i + 1 < mapNodes.Count)
-                mapNodes[i].AddConnection(mapNodes[i + 1]);
-            if (i + 2 < mapNodes.Count && Random.value > 0.5f)
-                mapNodes[i].AddConnection(mapNodes[i + 2]);
-            if (i % 2 == 0 && i + 3 < mapNodes.Count)
-                mapNodes[i].AddConnection(mapNodes[i + 3]);
+            if (i == nodeCount - 1)
+            {
+                if (i - 1 >= 0) mapNodes[i].AddConnection(mapNodes[i - 1]);
+                if (i - 2 >= 0) mapNodes[i].AddConnection(mapNodes[i - 2]);
+                if (i - 3 >= 0) mapNodes[i].AddConnection(mapNodes[i - 3]);
+            }
+
+            if (i % 2 == 0)
+            {
+                if (i + 3 < mapNodes.Count())
+                    mapNodes[i].AddConnection(mapNodes[i + 3]);
+                if (i + 2 < mapNodes.Count() && Random.value < branchingChance)
+                    mapNodes[i].AddConnection(mapNodes[i + 2]);
+            }
+            else
+            {
+                if (i + 3 < mapNodes.Count())
+                    mapNodes[i].AddConnection(mapNodes[i + 3]);
+            }
         }
     }
 
