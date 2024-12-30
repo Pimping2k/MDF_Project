@@ -1,15 +1,17 @@
 using System;
+using Containers;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     public static Player Instance;
-    
+
     [SerializeField] private HealthComponent healthComponent;
-    
-    [Header("States")]
-    public CameraState state;
+
+    [Header("States")] public CameraState state;
+
     public enum CameraState
     {
         standart,
@@ -19,12 +21,11 @@ public class Player : MonoBehaviour
 
     public bool canInput = true;
 
-    [Header("References")]
-    public BookManager bookManager;
+    [Header("References")] public BookManager bookManager;
     [SerializeField] private HealthComponent playerHealth;
     [SerializeField] private CameraManager cameraManager;
     private IA_PlayerControl playerControl;
-    
+
     public HealthComponent HealthComponent => healthComponent;
 
     private void Awake()
@@ -54,8 +55,14 @@ public class Player : MonoBehaviour
         if (canInput)
             switch (state)
             {
-                case CameraState.standart: bookManager.MoveOut(); state = CameraState.book; break;
-                case CameraState.table: cameraManager.ZoomOut(); state = CameraState.standart; break;
+                case CameraState.standart:
+                    bookManager.MoveOut();
+                    state = CameraState.book;
+                    break;
+                case CameraState.table:
+                    cameraManager.ZoomOut();
+                    state = CameraState.standart;
+                    break;
                 case CameraState.book: break;
             }
     }
@@ -65,8 +72,14 @@ public class Player : MonoBehaviour
         if (canInput)
             switch (state)
             {
-                case CameraState.standart: cameraManager.ZoomIn(); state = CameraState.table; break;
-                case CameraState.book: bookManager.MoveIn(); state = CameraState.standart; break;
+                case CameraState.standart:
+                    cameraManager.ZoomIn();
+                    state = CameraState.table;
+                    break;
+                case CameraState.book:
+                    bookManager.MoveIn();
+                    state = CameraState.standart;
+                    break;
                 case CameraState.table: break;
             }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Containers;
 using CoreMechanic;
 using DefaultNamespace;
@@ -8,6 +9,7 @@ using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Sequence = DG.Tweening.Sequence;
 
 namespace CardScripts
@@ -19,12 +21,15 @@ namespace CardScripts
         [SerializeField] private HealthComponent HealthComponent;
         [SerializeField] private DamageComponent DamageComponent;
 
+
         public int currentSlotId = -1;
 
         private Coroutine stepCoroutine;
         private bool isMoving = false;
         private bool isHitting = false;
         private Vector3 originalPosition;
+
+        private IA_PlayerControl PlayerControl;
 
         private float damage;
         private float health;
@@ -54,11 +59,15 @@ namespace CardScripts
 
         private void OnEnable()
         {
+            PlayerControl = new IA_PlayerControl();
+            PlayerControl.Enable();
             HealthComponent.OnDeath += Death;
         }
 
+
         private void OnDestroy()
         {
+            PlayerControl.Disable();
             HealthComponent.OnDeath -= Death;
         }
 
