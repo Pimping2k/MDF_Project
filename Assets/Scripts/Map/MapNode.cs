@@ -16,11 +16,12 @@ public class MapNode : MonoBehaviour
     private RectTransform lineRectTransform;
     private void Start()
     {
-        this.GetComponent<Button>().onClick.AddListener(OnSelectedNode);
+        GetComponent<Button>().onClick.AddListener(OnSelectedNode);
         if (line!=null)
         {
             startPos = this.transform.position;
         }
+        
         DrawLine();
     }
 
