@@ -9,7 +9,7 @@
                     "name": "GetDamage",
                     "type": "Button",
                     "id": "024f0b37-5df3-43ec-a0b1-369c4a6892a9",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -27,7 +27,7 @@
                     "name": "ZoomOut",
                     "type": "Button",
                     "id": "a62c2830-bf14-47af-9815-cbff4e55570a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -86,7 +86,7 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "9305027a-4e1c-45b7-adeb-6e625722575f",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -169,7 +169,16 @@
                     "name": "LMBAction",
                     "type": "Button",
                     "id": "546d6e27-7bcd-4d42-a0f9-fd3426222a37",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RMBAction",
+                    "type": "Button",
+                    "id": "109ba00c-5c3a-4dc9-88c0-2fab984525db",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -184,6 +193,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "LMBAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0a7253d9-d8ad-466f-83a0-9a0c97ea6eab",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RMBAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

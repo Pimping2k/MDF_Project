@@ -22,11 +22,15 @@ namespace CardScripts
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (eventData.button != PointerEventData.InputButton.Left)
+                return;
             onDrag.OnCurrentDrag();
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (eventData.button != PointerEventData.InputButton.Left)
+                return;
             onDrag.OnEndCurrentDrag();
         }
     }

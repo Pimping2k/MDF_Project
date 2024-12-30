@@ -1743,6 +1743,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Deck
       objectReference: {fileID: 0}
+    - target: {fileID: 2025632797479221882, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4809508858637899249, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
       propertyPath: m_Color.a
       value: 0
@@ -3935,7 +3939,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1958000173}
   - component: {fileID: 1958000174}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CardsParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4195,6 +4199,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9712764ed100d24189d9d786714c1f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bookPages:
+  - {fileID: 190715982024191077, guid: 123be6a0fa0a9a34b934083ccd3b4208, type: 3}
+  - {fileID: 190715982024191077, guid: 7a472446749a34c4581083e9ca8b6710, type: 3}
 --- !u!95 &2141803051
 Animator:
   serializedVersion: 7
