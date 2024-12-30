@@ -31,7 +31,7 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
                     ""name"": ""GetDamage"",
                     ""type"": ""Button"",
                     ""id"": ""024f0b37-5df3-43ec-a0b1-369c4a6892a9"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -49,7 +49,7 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
                     ""name"": ""ZoomOut"",
                     ""type"": ""Button"",
                     ""id"": ""a62c2830-bf14-47af-9815-cbff4e55570a"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -108,7 +108,7 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""9305027a-4e1c-45b7-adeb-6e625722575f"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -191,7 +191,16 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
                     ""name"": ""LMBAction"",
                     ""type"": ""Button"",
                     ""id"": ""546d6e27-7bcd-4d42-a0f9-fd3426222a37"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RMBAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""109ba00c-5c3a-4dc9-88c0-2fab984525db"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -206,6 +215,17 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LMBAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a7253d9-d8ad-466f-83a0-9a0c97ea6eab"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RMBAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -226,6 +246,7 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
         // PlayerMouseInteraction
         m_PlayerMouseInteraction = asset.FindActionMap("PlayerMouseInteraction", throwIfNotFound: true);
         m_PlayerMouseInteraction_LMBAction = m_PlayerMouseInteraction.FindAction("LMBAction", throwIfNotFound: true);
+        m_PlayerMouseInteraction_RMBAction = m_PlayerMouseInteraction.FindAction("RMBAction", throwIfNotFound: true);
     }
 
     ~@IA_PlayerControl()
@@ -411,11 +432,13 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerMouseInteraction;
     private List<IPlayerMouseInteractionActions> m_PlayerMouseInteractionActionsCallbackInterfaces = new List<IPlayerMouseInteractionActions>();
     private readonly InputAction m_PlayerMouseInteraction_LMBAction;
+    private readonly InputAction m_PlayerMouseInteraction_RMBAction;
     public struct PlayerMouseInteractionActions
     {
         private @IA_PlayerControl m_Wrapper;
         public PlayerMouseInteractionActions(@IA_PlayerControl wrapper) { m_Wrapper = wrapper; }
         public InputAction @LMBAction => m_Wrapper.m_PlayerMouseInteraction_LMBAction;
+        public InputAction @RMBAction => m_Wrapper.m_PlayerMouseInteraction_RMBAction;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMouseInteraction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -428,6 +451,9 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
             @LMBAction.started += instance.OnLMBAction;
             @LMBAction.performed += instance.OnLMBAction;
             @LMBAction.canceled += instance.OnLMBAction;
+            @RMBAction.started += instance.OnRMBAction;
+            @RMBAction.performed += instance.OnRMBAction;
+            @RMBAction.canceled += instance.OnRMBAction;
         }
 
         private void UnregisterCallbacks(IPlayerMouseInteractionActions instance)
@@ -435,6 +461,9 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
             @LMBAction.started -= instance.OnLMBAction;
             @LMBAction.performed -= instance.OnLMBAction;
             @LMBAction.canceled -= instance.OnLMBAction;
+            @RMBAction.started -= instance.OnRMBAction;
+            @RMBAction.performed -= instance.OnRMBAction;
+            @RMBAction.canceled -= instance.OnRMBAction;
         }
 
         public void RemoveCallbacks(IPlayerMouseInteractionActions instance)
@@ -466,5 +495,6 @@ public partial class @IA_PlayerControl: IInputActionCollection2, IDisposable
     public interface IPlayerMouseInteractionActions
     {
         void OnLMBAction(InputAction.CallbackContext context);
+        void OnRMBAction(InputAction.CallbackContext context);
     }
 }

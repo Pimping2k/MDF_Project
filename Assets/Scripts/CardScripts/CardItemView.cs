@@ -17,7 +17,14 @@ public class CardItemView : MonoBehaviour, ICustomDrag
     [SerializeField] private LayoutElement layoutElementComponent;
     [SerializeField] private CardSpawnModelComponent spawnModelComponent;
     [SerializeField] private RectTransform rectTransform;
-
+    [SerializeField] private int id;
+    
+    public int ID
+    {
+        get => id;
+        set => id = value;
+    }
+    
     private Player player;
 
     public HealthComponent HealthComponent
