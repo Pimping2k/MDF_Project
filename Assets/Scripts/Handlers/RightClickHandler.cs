@@ -10,6 +10,8 @@ public class RightClickHandler : MonoBehaviour, IPointerClickHandler
         if(eventData.button != PointerEventData.InputButton.Right)
             return;
         
+        Player.Instance.state = Player.CameraState.book;
+        CameraManager.Instance.ZoomOut();
         BookManager.Instance.OpenPage(CardItemView.ID);
     }
 }

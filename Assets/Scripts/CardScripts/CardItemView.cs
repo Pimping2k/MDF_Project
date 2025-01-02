@@ -24,8 +24,6 @@ public class CardItemView : MonoBehaviour, ICustomDrag
         get => id;
         set => id = value;
     }
-    
-    private Player player;
 
     public HealthComponent HealthComponent
     {
@@ -52,9 +50,9 @@ public class CardItemView : MonoBehaviour, ICustomDrag
         CameraManager.Instance.ZoomIn();
         rectTransform.position = Input.mousePosition;
         
-        player.canInput = false;
-        if (player.state == Player.CameraState.book)
-            player.bookManager.MoveIn();
+        Player.Instance.canInput = false;
+        if (Player.Instance.state == Player.CameraState.book)
+            Player.Instance.bookManager.MoveIn();
     }
 
     public void OnEndCurrentDrag()
@@ -71,14 +69,13 @@ public class CardItemView : MonoBehaviour, ICustomDrag
         }
 
         CameraManager.Instance.ZoomOut();
-        player.canInput = true;
-        player.state = Player.CameraState.standart;
+        Player.Instance.canInput = true;
+        Player.Instance.state = Player.CameraState.standart;
     }
 
     private void Awake()
     {
         UpdateCardText();
-        player = FindAnyObjectByType<Player>();
     }
 
     private void UpdateCardText()

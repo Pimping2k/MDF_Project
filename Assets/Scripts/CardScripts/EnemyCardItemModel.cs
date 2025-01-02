@@ -5,6 +5,7 @@ using Containers;
 using DefaultNamespace;
 using CoreMechanic;
 using DG.Tweening;
+using TMPro;
 using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace CardScripts
 {
     public class EnemyCardItemModel : MonoBehaviour, IHittable, IStepable
     {
+        [SerializeField] private TMP_Text floatingText;
         [SerializeField] private HealthComponent HealthComponent;
         [SerializeField] private DamageComponent DamageComponent;
 
@@ -130,6 +132,7 @@ namespace CardScripts
 
             Vector3 halfwayPosition = Vector3.Lerp(originalPosition, targetPosition, 0.5f);
 
+            ShowFloatingText(DamageComponent.Damage);
             attackSequence.Append(this.transform.DOMove(halfwayPosition, 0.3f).SetEase(Ease.OutCubic).OnComplete((() =>
             {
                 target.transform.DOShakePosition(0.5f, new Vector3(0.15f, 0.15f, 0.15f)).SetEase(Ease.InBounce);
@@ -145,6 +148,36 @@ namespace CardScripts
             TableCardManager.Instance.enemyCardsQueue.Remove(this);
             TableCardManager.Instance.enemyCardsInstance.Remove(this.gameObject);
             Destroy(this.gameObject);
+        }
+        
+        private void ShowFloatingText(float damage)
+        {
+            floatingText.gameObject.SetActive(true);
+
+            if (damage > 5)
+            {
+                floatingText.color = new Color(0.9f, 0.7f, 0.1f, 1f);
+            }
+            else if (damage < 5)
+            {
+                floatingText.color = new Color(0.8f, 0.8f, 0.3f, 1f);
+            }
+            else if (damage > 8)
+            {
+                floatingText.color = new Color(0.9f, 0.1f, 0.1f, 1f);
+            }
+
+            floatingText.text = $"{damage}";
+            var floatingTextScale = floatingText.GetComponent<Transform>();
+            var originTextScale = floatingTextScale.localScale;
+            floatingText.transform.DOScale(floatingTextScale.localScale * 2f, 1f)
+                .OnComplete((() => floatingTextScale.localScale = originTextScale));
+            floatingText.transform.DOShakePosition(1f, 5f);
+            floatingText.DOFade(0f, 1f).OnComplete((() =>
+            {
+                floatingText.gameObject.SetActive(false);
+                floatingText.alpha = 1f;
+            }));
         }
     }
 }
