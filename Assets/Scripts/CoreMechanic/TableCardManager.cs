@@ -93,7 +93,8 @@ namespace CoreMechanic
                 }
             }
             
-            StartCoroutine(ReorganizeEnemyCards(enemyCardsInstance));
+            if (bellAnimator.GetBool(AnimationStatesContainer.ISCLICKED))
+                StartCoroutine(ReorganizeEnemyCards(enemyCardsInstance));
         }
 
         private IEnumerator ReorganizeEnemyCards(List<GameObject> cardsInstances)

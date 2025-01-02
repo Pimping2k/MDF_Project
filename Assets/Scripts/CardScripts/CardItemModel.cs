@@ -21,7 +21,6 @@ namespace CardScripts
         [SerializeField] private HealthComponent HealthComponent;
         [SerializeField] private DamageComponent DamageComponent;
 
-
         public int currentSlotId = -1;
 
         private Coroutine stepCoroutine;
@@ -63,8 +62,7 @@ namespace CardScripts
             PlayerControl.Enable();
             HealthComponent.OnDeath += Death;
         }
-
-
+        
         private void OnDestroy()
         {
             PlayerControl.Disable();
@@ -166,15 +164,15 @@ namespace CardScripts
 
             if (damage > 5)
             {
-                floatingText.color = new Color(0.6f, 0.8f, 0.1f, 1f);
+                floatingText.color = new Color(0.3f, 0.8f, 0.5f, 1f);
             }
-            else if (damage < 5)
+            else if (damage <= 5)
             {
                 floatingText.color = new Color(0.33f, 0.85f, 0.92f, 1f);
             }
             else if (damage > 8)
             {
-                floatingText.color = new Color(0.6f, 0.8f, 0.1f, 1f);
+                floatingText.color = new Color(0.3f, 0.8f, 0.1f, 1f);
             }
 
             floatingText.text = $"{damage}";

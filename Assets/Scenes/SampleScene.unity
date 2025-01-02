@@ -3417,7 +3417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 100
+  maxHealth: 10
 --- !u!114 &1616121672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3430,7 +3430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befb1bd8233fe2543a4b8d139a93810f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthComponent: {fileID: 1616121671}
+  playerMaxWine: 2
   state: 0
   canInput: 1
   bookManager: {fileID: 2141803050}
