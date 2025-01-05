@@ -1,27 +1,23 @@
 using System;
-using System.Collections.Generic;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
-public class KeywordsTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
+public class CardViewKeywordHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject DescriptionPrefab;
-    [SerializeField] private TMP_Text KeywordText;
+    [SerializeField] private GameObject KeywordDescriptionPrefab;
+    [SerializeField] private TMP_Text Keyword;
 
     private GameObject currentDescription;
     private RectTransform currentDescriptionTransform;
-    
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (currentDescription == null)
         {
-            currentDescription = Instantiate(DescriptionPrefab, transform);
+            currentDescription = Instantiate(KeywordDescriptionPrefab, transform);
 
             currentDescriptionTransform = currentDescription.GetComponent<RectTransform>();
-            
         }
     }
 
@@ -33,12 +29,12 @@ public class KeywordsTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
     }
 
-    public void OnPointerMove(PointerEventData eventData)
+    private void Update()
     {
         if (currentDescription != null)
         {
-            Vector2 mousePosition = eventData.position;
-            Vector2 adjustedPosition = mousePosition + new Vector2(currentDescriptionTransform.rect.width / 2, -currentDescriptionTransform.rect.height / 2);
+            Vector2 mousePos = Input.mousePosition;
+            Vector2 adjustedPosition = mousePos + new Vector2(currentDescriptionTransform.rect.width / 2, -currentDescriptionTransform.rect.height / 2);
             currentDescriptionTransform.position = adjustedPosition;
         }
     }
