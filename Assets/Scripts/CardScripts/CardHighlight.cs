@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,7 +6,9 @@ using UnityEngine.UI;
 
 public class CardHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private float YOffset = 150f;
+    [SerializeField] private float YOffset = 50f;
+    [SerializeField] private GameObject highlight;
+    private CardItemView cardItemView;
     private LayoutElement cardLayoutElementComponent;
     private RectTransform rectTransform;
     private Vector3 originPos;
@@ -13,6 +16,7 @@ public class CardHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void Start()
     {
+        cardItemView = GetComponent<CardItemView>();
         cardLayoutElementComponent = GetComponent<LayoutElement>();
         rectTransform = GetComponent<RectTransform>();
         originPos = transform.localPosition;
@@ -20,20 +24,21 @@ public class CardHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (rectTransform != null)
+        if (rectTransform != null && !cardItemView.IsDragging)
         {
-            cardLayoutElementComponent.ignoreLayout = true;
-            //targetPos = new Vector3(rectTransform.localPosition.x, rectTransform.localPosition.y + YOffset, rectTransform.localPosition.z);
-            rectTransform.DOLocalMoveY(YOffset,0.1f);
+            highlight.SetActive(true);
+            rectTransform.DOLocalMoveY(YOffset, 0.025f);
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (transform != null)
+        if (transform != null && !cardItemView.IsDragging)
         {
-            cardLayoutElementComponent.ignoreLayout = false;
+            highlight.SetActive(false);
             rectTransform.position = originPos;
+            cardLayoutElementComponent.ignoreLayout = true;
+            cardLayoutElementComponent.ignoreLayout = false;
         }
     }
 }
