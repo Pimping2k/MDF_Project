@@ -746,6 +746,7 @@ MonoBehaviour:
   rectTransform: {fileID: 7430040536444889788}
   highlight: {fileID: 2314280683910737316}
   id: 1
+  isDragging: 0
 --- !u!114 &865975204632403498
 MonoBehaviour:
   m_ObjectHideFlags: 0
