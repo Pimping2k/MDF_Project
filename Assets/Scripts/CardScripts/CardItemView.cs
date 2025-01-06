@@ -17,13 +17,17 @@ public class CardItemView : MonoBehaviour, ICustomDrag
     [SerializeField] private LayoutElement layoutElementComponent;
     [SerializeField] private CardSpawnModelComponent spawnModelComponent;
     [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private GameObject highlight;
     [SerializeField] private int id;
+    [SerializeField] private bool isDragging = false;
     
     public int ID
     {
         get => id;
         set => id = value;
     }
+    
+    public bool IsDragging => isDragging;
 
     public HealthComponent HealthComponent
     {
@@ -42,14 +46,17 @@ public class CardItemView : MonoBehaviour, ICustomDrag
     private void Start()
     {
         originLocalPosition = rectTransform.localPosition;
+        layoutElementComponent = GetComponent<LayoutElement>();
     }
 
     public void OnCurrentDrag()
     {
+        highlight.SetActive(false);
         layoutElementComponent.ignoreLayout = true;
         CameraManager.Instance.ZoomIn();
         rectTransform.position = Input.mousePosition;
         
+        isDragging = true;
         Player.Instance.canInput = false;
         if (Player.Instance.state == Player.CameraState.book)
             Player.Instance.bookManager.MoveIn();
@@ -68,6 +75,7 @@ public class CardItemView : MonoBehaviour, ICustomDrag
             layoutElementComponent.ignoreLayout = false;
         }
 
+        isDragging = false;
         CameraManager.Instance.ZoomOut();
         Player.Instance.canInput = true;
         Player.Instance.state = Player.CameraState.standart;
