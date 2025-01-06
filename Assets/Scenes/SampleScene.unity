@@ -3575,7 +3575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befb1bd8233fe2543a4b8d139a93810f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMaxWine: 2
+  healthComponent: {fileID: 0}
   state: 0
   canInput: 1
   bookManager: {fileID: 2141803050}
@@ -4107,7 +4107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1958000174
