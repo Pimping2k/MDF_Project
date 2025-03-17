@@ -1,1 +1,1 @@
-# MDF_Project
+# MDF_Project - Unity Collection Card Game project
