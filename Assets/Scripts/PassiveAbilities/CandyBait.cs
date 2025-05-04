@@ -67,5 +67,14 @@ namespace PassiveAbilities
                 }
             }
         }
+#if UNITY_EDITOR
+        [ContextMenu("Candy bait passive")]
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireCube(transform.position, verticalBoxSize);
+            Gizmos.DrawWireCube(transform.position, horizontalBoxSize);
+        }
+#endif
     }
 }

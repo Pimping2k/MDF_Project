@@ -47,5 +47,14 @@ namespace PassiveAbilities
                 }
             }
         }
+        
+#if UNITY_EDITOR
+        [ContextMenu("Fast flight passive")]
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(transform.position, new Vector3(0.1f, 1f, 3f));
+        }
+#endif
     }
 }
