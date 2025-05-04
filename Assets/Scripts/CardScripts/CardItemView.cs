@@ -20,14 +20,14 @@ public class CardItemView : MonoBehaviour, ICustomDrag
     [SerializeField] private GameObject highlight;
     [SerializeField] private int id;
     [SerializeField] private bool isDragging = false;
-    
+
+    public bool IsDragging => isDragging;
+
     public int ID
     {
         get => id;
         set => id = value;
     }
-    
-    public bool IsDragging => isDragging;
 
     public HealthComponent HealthComponent
     {
