@@ -111,5 +111,26 @@ namespace CardScripts
                     throw new Exception("Not appliable token type");
             }
         }
+
+        //TODO APPLYING THIS ACTIVE ABILITY THROUGH THE UI CLICK IN GAME
+        private void ApplyActiveAbility()
+        {
+            switch (config.ActiveAbility)
+            {
+                case ActiveAbilities.PowerUp:
+                    //TODO Add step control for next 2 steps
+                    damageComponent.IncreaseDamage(1);
+                    healthComponent.IncreaseHealth(1);
+                    break;
+                case ActiveAbilities.HitWithRock:
+                    //TODO Give player card control to decide which enemy card he wants to hit
+                break;
+                case ActiveAbilities.HealingUp:
+                    healthComponent.FullHeal();
+                    break;
+                default:
+                    throw new Exception("No appliable active abilities type");
+            }
+        }
     }
 }

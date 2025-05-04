@@ -38,4 +38,6 @@ public class HealthComponent : MonoBehaviour
     {
         isTaunted = state;
     }
+
+    public void FullHeal() => health = maxHealth;
 }
