@@ -42,7 +42,7 @@ namespace PassiveAbilities
 
         private void CheckHorizontally()
         {
-            RaycastHit[] hits = Physics.BoxCastAll(transform.position, horizontalBoxSize, Vector3.left,
+            RaycastHit[] hits = Physics.BoxCastAll(transform.position, horizontalBoxSize, Vector3.forward,
                 Quaternion.identity, 3f);
 
             foreach (var hit in hits)
