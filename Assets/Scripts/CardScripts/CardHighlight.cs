@@ -1,4 +1,5 @@
 using System.Collections;
+using CardScripts;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;

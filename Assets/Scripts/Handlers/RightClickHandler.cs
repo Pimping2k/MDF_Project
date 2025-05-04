@@ -1,17 +1,20 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RightClickHandler : MonoBehaviour, IPointerClickHandler
+namespace CardScripts
 {
-    [SerializeField] private CardItemView CardItemView;
-    
-    public void OnPointerClick(PointerEventData eventData)
+    public class RightClickHandler : MonoBehaviour, IPointerClickHandler
     {
-        if(eventData.button != PointerEventData.InputButton.Right)
-            return;
-        
-        Player.Instance.state = Player.CameraState.book;
-        CameraManager.Instance.ZoomOut();
-        BookManager.Instance.OpenPage(CardItemView.ID);
+        [SerializeField] private CardItemView CardItemView;
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button != PointerEventData.InputButton.Right)
+                return;
+
+            Player.Instance.state = Player.CameraState.book;
+            CameraManager.Instance.ZoomOut();
+            BookManager.Instance.OpenPage(CardItemView.Config.ID);
+        }
     }
 }

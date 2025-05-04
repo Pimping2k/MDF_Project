@@ -47,8 +47,8 @@ namespace CardScripts
 
         private void Awake()
         {
-            HealthComponent = this.GetComponent<HealthComponent>();
-            DamageComponent = this.GetComponent<DamageComponent>();
+            HealthComponent = GetComponent<HealthComponent>();
+            DamageComponent = GetComponent<DamageComponent>();
         }
 
         private void Start()
@@ -155,7 +155,7 @@ namespace CardScripts
         {
             TableCardManager.Instance.playerCardsQueue.Remove(this);
             TableCardManager.Instance.playerCardsInstance.Remove(this.gameObject);
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
         private void ShowFloatingText(float damage)

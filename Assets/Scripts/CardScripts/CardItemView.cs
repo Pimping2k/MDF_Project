@@ -1,94 +1,115 @@
+using System;
 using CardScripts;
+using Components;
+using ConfigsScripts;
+using Enums;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardItemView : MonoBehaviour, ICustomDrag
+namespace CardScripts
 {
-    [Header("Text")]
-    [SerializeField] private TMP_Text damageText;
-    [SerializeField] private TMP_Text healthText;
-    [Header("Images")]
-    [SerializeField] private Image passiveImage;
-    [SerializeField] private Image activeImage;
-    [Header("Components")]
-    [SerializeField] private HealthComponent healthComponent;
-    [SerializeField] private DamageComponent damageComponent;
-    [SerializeField] private LayoutElement layoutElementComponent;
-    [SerializeField] private CardSpawnModelComponent spawnModelComponent;
-    [SerializeField] private RectTransform rectTransform;
-    [SerializeField] private GameObject highlight;
-    [SerializeField] private int id;
-    [SerializeField] private bool isDragging = false;
-
-    public bool IsDragging => isDragging;
-
-    public int ID
+    public class CardItemView : MonoBehaviour, ICustomDrag
     {
-        get => id;
-        set => id = value;
-    }
+        [Header("Main config")] [SerializeField]
+        private CardConfig config;
 
-    public HealthComponent HealthComponent
-    {
-        get => healthComponent;
-        set => healthComponent = value;
-    }
+        [Header("Text")] [SerializeField] private TMP_Text damageText;
+        [SerializeField] private TMP_Text healthText;
 
-    public DamageComponent DamageComponent
-    {
-        get => damageComponent;
-        set => damageComponent = value;
-    }
-    
-    private Vector3 originLocalPosition;
+        [Header("Images")] [SerializeField] private Image passiveImage;
+        [SerializeField] private Image activeImage;
 
-    private void Start()
-    {
-        originLocalPosition = rectTransform.localPosition;
-        layoutElementComponent = GetComponent<LayoutElement>();
-    }
-
-    public void OnCurrentDrag()
-    {
-        highlight.SetActive(false);
-        layoutElementComponent.ignoreLayout = true;
-        CameraManager.Instance.ZoomIn();
-        rectTransform.position = Input.mousePosition;
+        [Header("Components")] 
+        [SerializeField] private HealthComponent healthComponent;
+        [SerializeField] private PassiveCardComponent passiveCardComponent;
+        [SerializeField] private DamageComponent damageComponent;
+        [SerializeField] private LayoutElement layoutElementComponent;
+        [SerializeField] private CardSpawnModelComponent spawnModelComponent;
+        [SerializeField] private RectTransform rectTransform;
+        [SerializeField] private GameObject highlight;
         
-        isDragging = true;
-        Player.Instance.canInput = false;
-        if (Player.Instance.state == Player.CameraState.book)
-            Player.Instance.bookManager.MoveIn();
-    }
+        private bool isDragging;
 
-    public void OnEndCurrentDrag()
-    {
-        if (spawnModelComponent.FindAvailableLocation())
+        public CardConfig Config => config;
+        public bool IsDragging => isDragging;
+
+        private Vector3 originLocalPosition;
+
+        private void Awake()
         {
-            Debug.Log(DeckManager.Instance.PlayerCards.Count);
-            Debug.Log("Nashel");
-        }
-        else
-        {
-            rectTransform.localPosition = originLocalPosition;
-            layoutElementComponent.ignoreLayout = false;
+            UpdateCardText();
+            ApplyTokenEffect();
         }
 
-        isDragging = false;
-        CameraManager.Instance.ZoomOut();
-        Player.Instance.canInput = true;
-        Player.Instance.state = Player.CameraState.standart;
-    }
+        private void Start()
+        {
+            originLocalPosition = rectTransform.localPosition;
+            layoutElementComponent = GetComponent<LayoutElement>();
+        }
 
-    private void Awake()
-    {
-        UpdateCardText();
-    }
+        public void OnCurrentDrag()
+        {
+            highlight.SetActive(false);
+            layoutElementComponent.ignoreLayout = true;
+            CameraManager.Instance.ZoomIn();
+            rectTransform.position = Input.mousePosition;
 
-    private void UpdateCardText()
-    {
-        healthText.text = healthComponent.Health.ToString();
-        damageText.text = damageComponent.Damage.ToString();
+            isDragging = true;
+            Player.Instance.canInput = false;
+            if (Player.Instance.state == Player.CameraState.book)
+                Player.Instance.bookManager.MoveIn();
+        }
+
+        public void OnEndCurrentDrag()
+        {
+            if (spawnModelComponent.FindAvailableLocation())
+            {
+                Debug.Log(DeckManager.Instance.PlayerCards.Count);
+            }
+            else
+            {
+                rectTransform.localPosition = originLocalPosition;
+                layoutElementComponent.ignoreLayout = false;
+            }
+
+            isDragging = false;
+            CameraManager.Instance.ZoomOut();
+            Player.Instance.canInput = true;
+            Player.Instance.state = Player.CameraState.standart;
+        }
+
+        private void UpdateCardText()
+        {
+            healthText.text = healthComponent.Health.ToString();
+            damageText.text = damageComponent.Damage.ToString();
+        }
+
+        private void ApplyTokenEffect()
+        {
+            switch (config.Token)
+            {
+                case Token.Earth:
+                    healthComponent.IncreaseHealth(1);
+                    break;
+                case Token.Spear:
+                    break;
+                case Token.Provocation:
+                    healthComponent.EnableTaunt(true);
+                    break;
+                case Token.PowerUp:
+                    passiveCardComponent.PowerUpPassiveEffect(1);
+                    break;
+                case Token.Support:
+                    //TODO In passive component list of summoned entities to modify them
+                    //TODO Also decide what he will summon and how u can modify them
+                break;
+                case Token.Stealing:
+                    //TODO Add for attack stealing 2 gold coins but only for a one step
+                break;
+                default:
+                    throw new Exception("Not appliable token type");
+            }
+        }
     }
 }

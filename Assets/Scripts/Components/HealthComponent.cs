@@ -5,23 +5,17 @@ public class HealthComponent : MonoBehaviour
 {
     [SerializeField] private float health;
     [SerializeField] private float maxHealth;
+    [SerializeField] private bool isTaunted;
+    
+    public bool IsTaunted => isTaunted;
+    public float Health => health;
+    public float MaxHealth => maxHealth;
 
     public event Action OnDeath;
     
     private void Awake()
     {
         health = maxHealth;
-    }
-
-    public float Health
-    {
-        get => health;
-        set => health = value;
-    }
-
-    public float MaxHealth
-    {
-        get => maxHealth;
     }
 
     public float IncreaseHealth(float value)
@@ -38,5 +32,10 @@ public class HealthComponent : MonoBehaviour
             OnDeath?.Invoke();
         }
         return health;
+    }
+
+    public void EnableTaunt(bool state)
+    {
+        isTaunted = state;
     }
 }
