@@ -13,7 +13,11 @@ public class MapManager : MonoBehaviour
 {
     [SerializeField] [Range(0, 1)] private float branchingChance = 0.9f;
     public Transform mapArea;
-    public GameObject nodePrefab;
+    public GameObject enemyNodePrefab;
+    public GameObject eventNodePrefab;
+    public GameObject storeNodePrefab;
+    public GameObject startNodePrefab;
+    public GameObject endNodePrefab;
     public int nodeCount = 10;
 
     public GameObject MapNodeContainerPrefab;
@@ -86,9 +90,24 @@ public class MapManager : MonoBehaviour
             containersMapNodes.Add(nodeContainerInstance);
         }
 
-
+        GameObject[] nodePrefabs = { enemyNodePrefab, storeNodePrefab, eventNodePrefab, eventNodePrefab, eventNodePrefab, eventNodePrefab };
         for (int i = 0; i < nodeCount; i++)
         {
+            GameObject nodePrefab;
+            
+            if (i == 0)
+                nodePrefab = startNodePrefab;
+            else if (i == nodeCount - 1)
+                nodePrefab = endNodePrefab;
+            else
+            {
+                int id = Random.Range(0, nodePrefabs.Length);
+                nodePrefab = nodePrefabs[id];
+                List<GameObject> nodePrefAbsList = nodePrefabs.ToList();
+                nodePrefAbsList.Remove(nodePrefab);
+                nodePrefabs = nodePrefAbsList.ToArray();
+            }
+            
             GameObject nodeObject = Instantiate(nodePrefab, containersMapNodes[i].transform);
             MapNode node = nodeObject.GetComponent<MapNode>();
             mapNodes.Add(node);
@@ -118,10 +137,21 @@ public class MapManager : MonoBehaviour
                 if (i + 2 < mapNodes.Count() && Random.value < branchingChance)
                     mapNodes[i].AddConnection(mapNodes[i + 2]);
             }
+            else if (i % 3 == 0)
+            {
+                if (i + 3 < mapNodes.Count())
+                    mapNodes[i].AddConnection(mapNodes[i + 3]);
+                if (i + 2 < mapNodes.Count() && Random.value < branchingChance)
+                    mapNodes[i].AddConnection(mapNodes[i + 2]);
+            }
             else
             {
                 if (i + 3 < mapNodes.Count())
                     mapNodes[i].AddConnection(mapNodes[i + 3]);
+                if (i + 4 < mapNodes.Count() && Random.value < branchingChance)
+                    mapNodes[i].AddConnection(mapNodes[i + 4]);
+                if (i + 5 < mapNodes.Count() && Random.value < branchingChance)
+                    mapNodes[i].AddConnection(mapNodes[i + 5]);
             }
         }
     }

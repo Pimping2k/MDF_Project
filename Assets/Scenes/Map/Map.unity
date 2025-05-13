@@ -751,10 +751,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751aa38837129964992e135b9f380a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  branchingChance: 0.346
+  branchingChance: 0.5
   mapArea: {fileID: 340020018}
-  nodePrefab: {fileID: 1174636465828291713, guid: d5f364d14ba0a9f4a92a968e0e9f093a, type: 3}
-  nodeCount: 11
+  enemyNodePrefab: {fileID: 1174636465828291713, guid: d5f364d14ba0a9f4a92a968e0e9f093a, type: 3}
+  eventNodePrefab: {fileID: 4113281837245488063, guid: e6685b36d467ca54dbac8feca0efbf96, type: 3}
+  storeNodePrefab: {fileID: 3352564587888229422, guid: 87b3fc29ede342241947f622abfcbe60, type: 3}
+  startNodePrefab: {fileID: 6169678198396483210, guid: 220946828c19deb458883feeb816074b, type: 3}
+  endNodePrefab: {fileID: 4716787594887228772, guid: 7c5d67bcffe0c6f4a8acc6ff7fe72a8a, type: 3}
+  nodeCount: 8
   MapNodeContainerPrefab: {fileID: 6245411768343277936, guid: e81818ce1c4587d4b9ebd679ba8c7264, type: 3}
   containersMapNodes: []
   playerFigure: {fileID: 1614695215}
