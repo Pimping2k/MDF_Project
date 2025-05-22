@@ -10,6 +10,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using Sequence = DG.Tweening.Sequence;
 
 namespace CardScripts
@@ -27,6 +28,8 @@ namespace CardScripts
         private bool isMoving = false;
         private bool isHitting = false;
         private Vector3 originalPosition;
+        
+        private bool hasTokenStealing = false;
 
         private IA_PlayerControl PlayerControl;
 
@@ -43,6 +46,12 @@ namespace CardScripts
         {
             get => isHitting;
             set => isHitting = value;
+        }
+        
+        public bool HasTokenStealing
+        {
+            get => hasTokenStealing;
+            set => hasTokenStealing = value;
         }
 
         private void Awake()
@@ -149,6 +158,9 @@ namespace CardScripts
 
             attackSequence.Append(this.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(Ease.InCubic).SetDelay(0.1f))
                 .OnComplete(() => isHitting = false);
+            
+            if (hasTokenStealing)
+                CoinComponent.Instance.IncreaseCoins(2);
         }
 
         private void Death()

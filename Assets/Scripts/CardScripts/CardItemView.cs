@@ -13,6 +13,11 @@ namespace CardScripts
     {
         [Header("Main config")] [SerializeField]
         private CardConfig config;
+        
+        [Header("ActivePrefabs")]
+        [SerializeField] private GameObject powerUpPrefab;
+        [SerializeField] private GameObject rockPrefab;
+        [SerializeField] private GameObject healingPrefab;
 
         [Header("Text")] [SerializeField] private TMP_Text damageText;
         [SerializeField] private TMP_Text healthText;
@@ -66,6 +71,7 @@ namespace CardScripts
             if (spawnModelComponent.FindAvailableLocation())
             {
                 Debug.Log(DeckManager.Instance.PlayerCards.Count);
+                ApplyActiveAbility();
             }
             else
             {
@@ -101,32 +107,30 @@ namespace CardScripts
                     passiveCardComponent.PowerUpPassiveEffect(1);
                     break;
                 case Token.Support:
-                    //TODO In passive component list of summoned entities to modify them
-                    //TODO Also decide what he will summon and how u can modify them
-                break;
+                    foreach (var card in passiveCardComponent.summonedEntities)
+                        card.GetComponent<HealthComponent>().IncreaseHealth(1);
+                    break;
                 case Token.Stealing:
-                    //TODO Add for attack stealing 2 gold coins but only for a one step
-                break;
+                    GetComponent<CardItemModel>().HasTokenStealing = true;
+                    break;
                 default:
                     throw new Exception("Not appliable token type");
             }
         }
-
-        //TODO APPLYING THIS ACTIVE ABILITY THROUGH THE UI CLICK IN GAME
+        
         private void ApplyActiveAbility()
         {
+            DeckManager deckManager = DeckManager.Instance;
             switch (config.ActiveAbility)
             {
                 case ActiveAbilities.PowerUp:
-                    //TODO Add step control for next 2 steps
-                    damageComponent.IncreaseDamage(1);
-                    healthComponent.IncreaseHealth(1);
+                    deckManager.AddCard(deckManager.activePrefabs[0]);
                     break;
                 case ActiveAbilities.HitWithRock:
-                    //TODO Give player card control to decide which enemy card he wants to hit
-                break;
+                    deckManager.AddCard(deckManager.activePrefabs[1]);
+                    break;
                 case ActiveAbilities.HealingUp:
-                    healthComponent.FullHeal();
+                    deckManager.AddCard(deckManager.activePrefabs[2]);
                     break;
                 default:
                     throw new Exception("No appliable active abilities type");
