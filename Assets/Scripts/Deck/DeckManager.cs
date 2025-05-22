@@ -1,10 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Deck;
 using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
     public static DeckManager Instance;
+    
+    public GameObject[] activePrefabs;
+    
+    [SerializeField] private GameObject cardsParent;
     private List<GameObject> playerCards = new List<GameObject>();
 
     public List<GameObject> PlayerCards
@@ -24,5 +29,11 @@ public class DeckManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void AddCard(GameObject card)
+    {
+        var cardInstance = Instantiate(card, cardsParent.transform);
+        playerCards.Add(cardInstance);
     }
 }

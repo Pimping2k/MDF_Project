@@ -8142,6 +8142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80aaeceaf11a83a49948249d277a3895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activePrefabs:
+  - {fileID: 3394147907214919229, guid: aaab024ccc84a92419fbd118b3856e97, type: 3}
+  - {fileID: 3394147907214919229, guid: f07dfb58200b13c4e9479530b5342f64, type: 3}
+  - {fileID: 3394147907214919229, guid: 2cf11469f75fef240929ab84b2884175, type: 3}
+  cardsParent: {fileID: 1958000172}
 --- !u!1001 &1848961620
 PrefabInstance:
   m_ObjectHideFlags: 0
