@@ -13,14 +13,11 @@ namespace CardScripts
     {
         [Header("Main config")] [SerializeField]
         private CardConfig config;
-        
-        [Header("ActivePrefabs")]
-        [SerializeField] private GameObject powerUpPrefab;
-        [SerializeField] private GameObject rockPrefab;
-        [SerializeField] private GameObject healingPrefab;
 
         [Header("Text")] [SerializeField] private TMP_Text damageText;
+        [SerializeField] private TMP_Text damageHighlightText;
         [SerializeField] private TMP_Text healthText;
+        [SerializeField] private TMP_Text healthHighlightText;
 
         [Header("Images")] [SerializeField] private Image passiveImage;
         [SerializeField] private Image activeImage;
@@ -45,6 +42,8 @@ namespace CardScripts
         {
             UpdateCardText();
             ApplyTokenEffect();
+            UpdateHeathUI();
+            UpdateDamageUI();
         }
 
         private void Start()
@@ -97,6 +96,7 @@ namespace CardScripts
             {
                 case Token.Earth:
                     healthComponent.IncreaseHealth(1);
+                    UpdateHeathUI();
                     break;
                 case Token.Spear:
                     break;
@@ -135,6 +135,18 @@ namespace CardScripts
                 default:
                     throw new Exception("No appliable active abilities type");
             }
+        }
+        
+        public void UpdateHeathUI()
+        {
+            healthText.text = healthComponent.Health.ToString();
+            healthHighlightText.text = healthComponent.Health.ToString();
+        }
+
+        public void UpdateDamageUI()
+        {
+            damageText.text = damageComponent.Damage.ToString();
+            damageHighlightText.text = damageComponent.Damage.ToString();
         }
     }
 }
