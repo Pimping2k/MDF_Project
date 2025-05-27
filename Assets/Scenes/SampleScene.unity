@@ -1472,17 +1472,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1958000172}
     - target: {fileID: 1900296022473361689, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
+      propertyPath: cards.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900296022473361689, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
       propertyPath: 'cards.Array.data[1]'
       value: 
-      objectReference: {fileID: 4739077838961950024, guid: 7996e2859a1cac04ba46bf05245195db, type: 3}
+      objectReference: {fileID: 4739077838961950024, guid: 90377f3f79297334d930a8b654511f6a, type: 3}
+    - target: {fileID: 1900296022473361689, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
+      propertyPath: 'cards.Array.data[2]'
+      value: 
+      objectReference: {fileID: 4739077838961950024, guid: 877c17b84fd8a9144abe8ba8d16a2b22, type: 3}
     - target: {fileID: 1900296022473361689, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
       propertyPath: 'cards.Array.data[3]'
       value: 
-      objectReference: {fileID: 4739077838961950024, guid: 90377f3f79297334d930a8b654511f6a, type: 3}
+      objectReference: {fileID: 4739077838961950024, guid: 67a3628b23d8b4248b9000bd0cdf2d51, type: 3}
     - target: {fileID: 1900296022473361689, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
       propertyPath: 'cards.Array.data[4]'
       value: 
-      objectReference: {fileID: 4739077838961950024, guid: 90377f3f79297334d930a8b654511f6a, type: 3}
+      objectReference: {fileID: 4739077838961950024, guid: ffd627d83b4e7d54b8f91a4b77d6e1f7, type: 3}
+    - target: {fileID: 1900296022473361689, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
+      propertyPath: 'cards.Array.data[5]'
+      value: 
+      objectReference: {fileID: 4739077838961950024, guid: 877c17b84fd8a9144abe8ba8d16a2b22, type: 3}
     - target: {fileID: 1900296022473361689, guid: 43709b10a85a0e74ab2e4a850f52b2d5, type: 3}
       propertyPath: deckTransformParent
       value: 
@@ -8637,6 +8649,9 @@ MonoBehaviour:
   bookPages:
   - {fileID: 190715982024191077, guid: 123be6a0fa0a9a34b934083ccd3b4208, type: 3}
   - {fileID: 190715982024191077, guid: 7a472446749a34c4581083e9ca8b6710, type: 3}
+  - {fileID: 190715982024191077, guid: c0aad9a72fe0c6c4ab3c5d389f5cd80c, type: 3}
+  - {fileID: 190715982024191077, guid: 112f545d063e115428f1725d3841961c, type: 3}
+  - {fileID: 190715982024191077, guid: 089e9f4379d18634f990cc649cbf4335, type: 3}
 --- !u!95 &2141803051
 Animator:
   serializedVersion: 7

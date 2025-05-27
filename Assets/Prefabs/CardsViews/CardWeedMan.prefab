@@ -605,6 +605,7 @@ GameObject:
   - component: {fileID: 8044204594633697744}
   - component: {fileID: 4205345558647164411}
   - component: {fileID: 856337612393360681}
+  - component: {fileID: 4481951876838953748}
   m_Layer: 0
   m_Name: CardWeedMan
   m_TagString: PlayerCardView
@@ -650,7 +651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreLayout: 1
+  m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
@@ -738,11 +739,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 6246a4b82870d164ca0dc70d4776af7d, type: 2}
   damageText: {fileID: 3835410947354493180}
+  damageHighlightText: {fileID: 150276124134220841}
   healthText: {fileID: 7314318342689923435}
+  healthHighlightText: {fileID: 6207249748524665958}
   passiveImage: {fileID: 2009338082221883537}
   activeImage: {fileID: 2155319857973100427}
   healthComponent: {fileID: 7828403988337050210}
-  passiveCardComponent: {fileID: 0}
+  passiveCardComponent: {fileID: 4481951876838953748}
   damageComponent: {fileID: 1135307803118273750}
   layoutElementComponent: {fileID: 0}
   spawnModelComponent: {fileID: 4002521666573061417}
@@ -848,6 +851,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   YOffset: 50
   highlight: {fileID: 2314280683910737316}
+--- !u!114 &4481951876838953748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4739077838961950024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ebdfa60cd35492684679d1f9b24f328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  summonedEntities: []
 --- !u!1 &4841335325128780591
 GameObject:
   m_ObjectHideFlags: 0

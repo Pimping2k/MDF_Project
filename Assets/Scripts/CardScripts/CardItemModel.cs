@@ -21,6 +21,8 @@ namespace CardScripts
         [SerializeField] private TMP_Text floatingText;
         [SerializeField] private HealthComponent HealthComponent;
         [SerializeField] private DamageComponent DamageComponent;
+        [SerializeField] private TMP_Text healthText;
+        [SerializeField] private TMP_Text damageText;
 
         public int currentSlotId = -1;
 
@@ -82,6 +84,8 @@ namespace CardScripts
         {
             health = HealthComponent.Health;
             damage = DamageComponent.Damage;
+            UpdateHealthUI();
+            UpdateDamageUI();
         }
 
         public void Hit()
@@ -198,6 +202,16 @@ namespace CardScripts
                 floatingText.gameObject.SetActive(false);
                 floatingText.alpha = 1f;
             }));
+        }
+
+        public void UpdateHealthUI()
+        {
+            healthText.text = health.ToString();
+        }
+
+        public void UpdateDamageUI()
+        {
+            damageText.text = damage.ToString();
         }
     }
 }
