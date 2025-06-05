@@ -1,3 +1,4 @@
+using Components;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 
@@ -16,7 +17,7 @@ public class CandleBehaviour : MonoBehaviour
     
     void Update()
     {
-        minMaxCurve = new ParticleSystem.MinMaxCurve(200f * healthComponent.Health / healthComponent.MaxHealth, 300f * healthComponent.Health / healthComponent.MaxHealth);
+        minMaxCurve = new ParticleSystem.MinMaxCurve(200f * healthComponent.CurrentValue / healthComponent.MaxValue, 300f * healthComponent.CurrentValue / healthComponent.MaxValue);
         emissionModule.rateOverTime = minMaxCurve;
     }
 }

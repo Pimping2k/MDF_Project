@@ -697,9 +697,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1400b7f8ff619b6419074bbf5d69c0f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 4
   isTaunted: 0
+  _maxHealth: 3
 --- !u!114 &1135307803118273750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,6 +725,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: d2fd9aff2d561c84cacc7891e46fb52a, type: 2}
+  powerUpPrefab: {fileID: 0}
+  rockPrefab: {fileID: 0}
+  healingPrefab: {fileID: 0}
   damageText: {fileID: 3835410947354493180}
   damageHighlightText: {fileID: 7834942937496300064}
   healthText: {fileID: 7314318342689923435}

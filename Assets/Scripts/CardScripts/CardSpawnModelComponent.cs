@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CardScripts;
+using Components;
 using Containers;
 using CoreMechanic;
 using DG.Tweening;

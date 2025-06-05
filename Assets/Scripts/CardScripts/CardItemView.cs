@@ -86,7 +86,7 @@ namespace CardScripts
 
         private void UpdateCardText()
         {
-            healthText.text = healthComponent.Health.ToString();
+            healthText.text = healthComponent.CurrentValue.ToString();
             damageText.text = damageComponent.Damage.ToString();
         }
 

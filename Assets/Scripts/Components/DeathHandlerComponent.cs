@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Components;
 using UnityEngine;
 
 public class DeathHandlerComponent : MonoBehaviour

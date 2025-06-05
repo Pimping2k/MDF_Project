@@ -1,43 +1,50 @@
 using System;
+using Interfaces;
 using UnityEngine;
 
-public class HealthComponent : MonoBehaviour
+namespace Components
 {
-    [SerializeField] private float health;
-    [SerializeField] private float maxHealth;
-    [SerializeField] private bool isTaunted;
-    
-    public bool IsTaunted => isTaunted;
-    public float Health => health;
-    public float MaxHealth => maxHealth;
-
-    public event Action OnDeath;
-    
-    private void Awake()
+    public class HealthComponent : MonoBehaviour, IScalable
     {
-        health = maxHealth;
-    }
+        [SerializeField] private bool isTaunted;
+        [SerializeField] private float _maxHealth;
+        
+        private float _currentHealth;
 
-    public float IncreaseHealth(float value)
-    {
-        health += value;
-        return health;
-    }
+        public float CurrentValue => _currentHealth;
+        public float MaxValue => _maxHealth;
+        public bool IsTaunted => isTaunted;
 
-    public float DecreaseHealth(float value)
-    {
-        health -= value;
-        if (health <= 0)
+        public event Action<float> OnValueChanged;
+        public event Action OnDeath;
+
+        private void Awake()
         {
-            OnDeath?.Invoke();
+            _currentHealth = _maxHealth;
+            OnValueChanged?.Invoke(_currentHealth);
         }
-        return health;
-    }
 
-    public void EnableTaunt(bool state)
-    {
-        isTaunted = state;
-    }
+        public float IncreaseHealth(float value)
+        {
+            _currentHealth += value;
+            return _currentHealth;
+        }
 
-    public void FullHeal() => health = maxHealth;
+        public float DecreaseHealth(float value)
+        {
+            _currentHealth -= value;
+            if (_currentHealth <= 0)
+            {
+                OnDeath?.Invoke();
+            }
+            return _currentHealth;
+        }
+
+        public void EnableTaunt(bool state)
+        {
+            isTaunted = state;
+        }
+
+        public void FullHeal() => _currentHealth = _maxHealth;
+    }
 }

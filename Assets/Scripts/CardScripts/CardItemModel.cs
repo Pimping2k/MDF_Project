@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Components;
 using Containers;
 using CoreMechanic;
 using DefaultNamespace;
@@ -82,7 +83,7 @@ namespace CardScripts
 
         private void Initialize()
         {
-            health = HealthComponent.Health;
+            health = HealthComponent.CurrentValue;
             damage = DamageComponent.Damage;
             UpdateHealthUI();
             UpdateDamageUI();

@@ -1,5 +1,6 @@
 using System;
 using CardScripts;
+using Components;
 using Containers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -53,7 +54,7 @@ namespace Active
             {
                 HealthComponent healthComponent = hit.collider.GetComponent<HealthComponent>();
                 
-                if (hit.collider.CompareTag(TagsContainer.PLAYERCARDITEMMODEL) && healthComponent.Health < healthComponent.MaxHealth)
+                if (hit.collider.CompareTag(TagsContainer.PLAYERCARDITEMMODEL) && healthComponent.CurrentValue < healthComponent.MaxValue)
                 {
                     healthComponent.FullHeal();
                 
