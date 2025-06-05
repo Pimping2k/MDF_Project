@@ -139,8 +139,8 @@ namespace CardScripts
         
         public void UpdateHeathUI()
         {
-            healthText.text = healthComponent.Health.ToString();
-            healthHighlightText.text = healthComponent.Health.ToString();
+            healthText.text = healthComponent.CurrentValue.ToString();
+            healthHighlightText.text = healthComponent.CurrentValue.ToString();
         }
 
         public void UpdateDamageUI()
