@@ -113,8 +113,6 @@ namespace CardScripts
                 case Token.Stealing:
                     GetComponent<CardItemModel>().HasTokenStealing = true;
                     break;
-                default:
-                    throw new Exception("Not appliable token type");
             }
         }
         
@@ -132,8 +130,6 @@ namespace CardScripts
                 case ActiveAbilities.HealingUp:
                     deckManager.AddCard(deckManager.activePrefabs[2]);
                     break;
-                default:
-                    throw new Exception("No appliable active abilities type");
             }
         }
         
