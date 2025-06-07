@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CardScripts;
 using Containers;
+using UI.Phase;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +14,8 @@ namespace CoreMechanic
         public static TableCardManager Instance;
 
         [SerializeField] private Animator bellAnimator;
-
+        [SerializeField] private PhaseTurnUI _phaseTurnUI;
+        
         public List<GameObject> playerCardsInstance;
         public List<GameObject> enemyCardsInstance;
 
@@ -56,12 +58,13 @@ namespace CoreMechanic
         private void LMBActionRaycastOnperformed(InputAction.CallbackContext obj)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+            
             if (Physics.Raycast(ray, out var hitInfo, 10000f))
             {
                 Debug.DrawRay(ray.origin, ray.direction * 10000f, Color.red, 5f);
                 if (hitInfo.collider.CompareTag(TagsContainer.INTERACTABLEBELL))
                 {
+                    _phaseTurnUI.ShowParticipantTurn(true);
                     StartCoroutine(ReorganizeCards(playerCardsInstance));
                 }
             }
@@ -90,9 +93,11 @@ namespace CoreMechanic
                     playerCardsQueue.Remove(card);
                 }
             }
-            
+
             if (bellAnimator.GetBool(AnimationStatesContainer.ISCLICKED))
+            {
                 StartCoroutine(ReorganizeEnemyCards(enemyCardsInstance));
+            }
         }
 
         private IEnumerator ReorganizeEnemyCards(List<GameObject> cardsInstances)

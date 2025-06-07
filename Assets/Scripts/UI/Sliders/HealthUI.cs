@@ -1,5 +1,4 @@
-﻿using System;
-using Components;
+﻿using Components;
 using UnityEngine;
 
 namespace UI.Sliders
@@ -7,11 +6,11 @@ namespace UI.Sliders
     public class HealthUI : MonoBehaviour
     {
         [SerializeField] private GenericSliderComponent<HealthComponent> _sliderComponent;
-        [SerializeField] private HealthComponent _playerHealth;
+        [SerializeField] private HealthComponent _entityHealth;
 
         private void Start()
         {
-            _sliderComponent.Initialize(_playerHealth);
+            _sliderComponent.Initialize(_entityHealth);
         }
     }
 }

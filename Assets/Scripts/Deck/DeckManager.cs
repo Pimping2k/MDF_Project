@@ -7,11 +7,12 @@ public class DeckManager : MonoBehaviour
 {
     public static DeckManager Instance;
     
-    public GameObject[] activePrefabs;
-    
+    [SerializeField] private GameObject[] activePrefabs;
     [SerializeField] private GameObject cardsParent;
+    
     private List<GameObject> playerCards = new List<GameObject>();
 
+    public GameObject[] ActivePrefabs => activePrefabs;
     public List<GameObject> PlayerCards
     {
         get => playerCards;

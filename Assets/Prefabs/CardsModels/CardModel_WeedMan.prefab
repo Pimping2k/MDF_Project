@@ -109,6 +109,8 @@ MonoBehaviour:
   floatingText: {fileID: 2287588994015350106}
   HealthComponent: {fileID: 146222761039239961}
   DamageComponent: {fileID: 8703212135607523502}
+  healthText: {fileID: 0}
+  damageText: {fileID: 0}
   currentSlotId: 0
 --- !u!114 &5821306371932398106
 MonoBehaviour:
@@ -158,8 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1400b7f8ff619b6419074bbf5d69c0f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 4
+  isTaunted: 0
+  _maxHealth: 0
 --- !u!114 &8703212135607523502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,13 +200,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7353254888391169091}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.258819, y: 0, z: 0, w: 0.9659259}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5727042580360080870}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -30, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 10, y: 8}

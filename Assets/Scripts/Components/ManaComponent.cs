@@ -1,8 +1,6 @@
 using System;
 using Interfaces;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Components
 {

@@ -152,7 +152,7 @@ namespace CardScripts
             Sequence attackSequence = DOTween.Sequence();
 
             Vector3 halfwayPosition = Vector3.Lerp(originalPosition, targetPosition, 0.5f);
-
+            attackSequence?.Kill();
             ShowFloatingText(DamageComponent.Damage);
             attackSequence.Append(this.transform.DOMove(halfwayPosition, 0.3f).SetEase(Ease.OutCubic).OnComplete((() =>
             {

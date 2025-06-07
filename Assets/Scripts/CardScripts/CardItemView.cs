@@ -122,13 +122,13 @@ namespace CardScripts
             switch (config.ActiveAbility)
             {
                 case ActiveAbilities.PowerUp:
-                    deckManager.AddCard(deckManager.activePrefabs[0]);
+                    deckManager.AddCard(deckManager.ActivePrefabs[0]);
                     break;
                 case ActiveAbilities.HitWithRock:
-                    deckManager.AddCard(deckManager.activePrefabs[1]);
+                    deckManager.AddCard(deckManager.ActivePrefabs[1]);
                     break;
                 case ActiveAbilities.HealingUp:
-                    deckManager.AddCard(deckManager.activePrefabs[2]);
+                    deckManager.AddCard(deckManager.ActivePrefabs[2]);
                     break;
             }
         }
