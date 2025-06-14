@@ -25,7 +25,7 @@ public class CardHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (rectTransform != null && !cardItemView.IsDragging)
+        if (rectTransform != null&& cardItemView != null && !cardItemView.IsDragging)
         {
             highlight.SetActive(true);
             rectTransform.DOLocalMoveY(YOffset, 0.025f);
@@ -34,7 +34,7 @@ public class CardHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (transform != null && !cardItemView.IsDragging)
+        if (transform != null && cardItemView != null && !cardItemView.IsDragging)
         {
             highlight.SetActive(false);
             rectTransform.position = originPos;

@@ -85,8 +85,8 @@ namespace CardScripts
         {
             health = HealthComponent.CurrentValue;
             damage = DamageComponent.Damage;
-            UpdateHealthUI();
-            UpdateDamageUI();
+            //UpdateHealthUI();
+            //UpdateDamageUI();
         }
 
         public void Hit()

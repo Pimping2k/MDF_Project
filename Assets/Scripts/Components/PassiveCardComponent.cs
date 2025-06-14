@@ -10,17 +10,17 @@ namespace Components
         
         public void ApplyPassiveEffect()
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
 
         public void PowerUpPassiveEffect(int value)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
 
         public void PowerUpPassiveEffect(float value)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
     }
 }

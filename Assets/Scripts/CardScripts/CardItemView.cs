@@ -108,10 +108,16 @@ namespace CardScripts
                     break;
                 case Token.Support:
                     foreach (var card in passiveCardComponent.summonedEntities)
-                        card.GetComponent<HealthComponent>().IncreaseHealth(1);
+                    {
+                        if (card.TryGetComponent<HealthComponent>(out var cardHealth))
+                            cardHealth.IncreaseHealth(1);
+                    }
                     break;
                 case Token.Stealing:
-                    GetComponent<CardItemModel>().HasTokenStealing = true;
+                    if (TryGetComponent<CardItemModel>(out var cardModel))
+                    {
+                        cardModel.HasTokenStealing = true;
+                    }
                     break;
             }
         }

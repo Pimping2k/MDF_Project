@@ -15,12 +15,9 @@ namespace Components
 
         private EnemyCardsContainer enemyCardsContainer;
 
-        private void Update()
+        private void Start()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                StartCoroutine(SpawnEnemyCards());
-            }
+            StartCoroutine(SpawnEnemyCards());
         }
 
         private void OnEnable()
