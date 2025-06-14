@@ -1,5 +1,7 @@
 ﻿using System;
 using Components;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -12,7 +14,8 @@ namespace CoreMechanic
 
         [SerializeField] private GameObject[] enemyPrefabs;
         [SerializeField] private Transform spawnPoint;
-
+        [SerializeField] private CanvasGroup winUi;
+        
         private GameObject currentEnemy;
         private HealthComponent healthComponent;
         
@@ -30,6 +33,18 @@ namespace CoreMechanic
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void Start()
+        {
+            healthComponent.OnDeath += OnDeath;
+        }
+
+        private async void OnDeath()
+        {
+            winUi.DOFade(1f, .5f);
+            await UniTask.WaitForSeconds(1f);
+            SceneManager.LoadScene(0);
         }
 
         private void OnEnable()

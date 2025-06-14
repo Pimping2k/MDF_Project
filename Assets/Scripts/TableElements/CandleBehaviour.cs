@@ -17,7 +17,7 @@ public class CandleBehaviour : MonoBehaviour
     
     void Update()
     {
-        minMaxCurve = new ParticleSystem.MinMaxCurve(200f * healthComponent.CurrentValue / healthComponent.MaxValue, 300f * healthComponent.CurrentValue / healthComponent.MaxValue);
-        emissionModule.rateOverTime = minMaxCurve;
+        //minMaxCurve = new ParticleSystem.MinMaxCurve(200f * healthComponent.CurrentValue / healthComponent.MaxValue, 300f * healthComponent.CurrentValue / healthComponent.MaxValue);
+        //emissionModule.rateOverTime = minMaxCurve;
     }
 }

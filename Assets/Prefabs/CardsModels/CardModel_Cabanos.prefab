@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a54820e82c4216872bd640bfb083a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardView: {fileID: 0}
+  cardView: {fileID: 6087884597908850766, guid: 90377f3f79297334d930a8b654511f6a, type: 3}
   floatingText: {fileID: 2287588994015350106}
   HealthComponent: {fileID: 146222761039239961}
   DamageComponent: {fileID: 8703212135607523502}
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTaunted: 0
-  _maxHealth: 0
+  _maxHealth: 10
 --- !u!114 &8703212135607523502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd42124a14a79d14bac856735f591a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 3
+  damage: 2
 --- !u!1 &7353254888391169091
 GameObject:
   m_ObjectHideFlags: 0

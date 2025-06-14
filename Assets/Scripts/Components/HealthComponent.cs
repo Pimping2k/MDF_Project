@@ -32,11 +32,12 @@ namespace Components
 
         public float DecreaseHealth(float value)
         {
-            _currentHealth -= value;
+            _currentHealth -= Mathf.Clamp(value, 0f,_maxHealth);
             if (_currentHealth <= 0)
             {
                 OnDeath?.Invoke();
             }
+            OnValueChanged?.Invoke(_currentHealth);
             return _currentHealth;
         }
 

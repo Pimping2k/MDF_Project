@@ -691,7 +691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTaunted: 0
-  _maxHealth: 0
+  _maxHealth: 10
 --- !u!114 &5771801229792045755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -704,4 +704,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd42124a14a79d14bac856735f591a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 2

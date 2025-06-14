@@ -159,7 +159,7 @@ namespace CardScripts
                 target.transform.DOShakePosition(0.5f, new Vector3(0.15f, 0.15f, 0.15f)).SetEase(Ease.InBounce);
             })));
 
-            attackSequence.AppendCallback(() => enemyHealth.DecreaseHealth(DamageComponent.Damage));
+            enemyHealth.DecreaseHealth(DamageComponent.Damage);
 
             attackSequence.Append(this.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(Ease.InCubic).SetDelay(0.1f))
                 .OnComplete(() => isHitting = false);

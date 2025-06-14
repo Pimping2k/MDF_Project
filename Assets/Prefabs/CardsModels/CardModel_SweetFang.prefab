@@ -755,10 +755,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a54820e82c4216872bd640bfb083a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardView: {fileID: 0}
+  cardView: {fileID: 6087884597908850766, guid: ffd627d83b4e7d54b8f91a4b77d6e1f7, type: 3}
   floatingText: {fileID: 2318270300650940784}
-  HealthComponent: {fileID: 0}
-  DamageComponent: {fileID: 0}
+  HealthComponent: {fileID: 2634360523411320473}
+  DamageComponent: {fileID: 5771801229792045755}
   healthText: {fileID: 4531763225416183670}
   damageText: {fileID: 4719805219231591802}
   currentSlotId: 0
@@ -811,7 +811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTaunted: 0
-  _maxHealth: 0
+  _maxHealth: 10
 --- !u!114 &5771801229792045755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,4 +824,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd42124a14a79d14bac856735f591a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 2

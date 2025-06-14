@@ -1,9 +1,12 @@
 using System;
 using Components;
 using Containers;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -25,6 +28,7 @@ public class Player : MonoBehaviour
     [Header("References")] public BookManager bookManager;
     [SerializeField] private HealthComponent playerHealth;
     [SerializeField] private CameraManager cameraManager;
+    [SerializeField] private CanvasGroup _deathGroup;
     private IA_PlayerControl playerControl;
 
     public HealthComponent HealthComponent => healthComponent;
@@ -39,6 +43,18 @@ public class Player : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        healthComponent.OnDeath += OnDeath;
+    }
+
+    private async void OnDeath()
+    {
+        _deathGroup.DOFade(1f,0.5f);
+        await UniTask.WaitForSeconds(1f);
+        SceneManager.LoadScene(0);
     }
 
     private void OnEnable()
