@@ -96,6 +96,7 @@ namespace CoreMechanic
 
             if (bellAnimator.GetBool(AnimationStatesContainer.ISCLICKED))
             {
+                _phaseTurnUI.ShowParticipantTurn(false);
                 StartCoroutine(ReorganizeEnemyCards(enemyCardsInstance));
             }
         }

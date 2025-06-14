@@ -8574,6 +8574,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textHolder: {fileID: 1369217024}
+  _baseImage: {fileID: 348450996}
+  _enemyPhase: {fileID: 21300000, guid: 6888f6e9fb836a7409e9ee99917f2c36, type: 3}
+  _playerPhase: {fileID: 21300000, guid: 38653e6ac4f45214d9f0cb2a95e2ce0a, type: 3}
   _targetPosition: 0
   _initialPosition: -2000
   _duration: 0.5
